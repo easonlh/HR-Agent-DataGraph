@@ -1,0 +1,83 @@
+{
+  "$schema": "../../../schemas/administrative-division.schema.json",
+  "metadata": {
+    "version": "0.1.0",
+    "lastUpdated": "2026-05-24",
+    "description": { "zh": "学历学位层级标准定义", "en": "Standard degree and credential hierarchy" }
+  },
+  "degreeTypes": [
+    {
+      "code": "HIGH_SCHOOL",
+      "name": { "zh": "高中", "en": "High School" },
+      "level": 1,
+      "category": "学历",
+      "description": { "zh": "高中毕业证书", "en": "High school diploma" }
+    },
+    {
+      "code": "ASSOCIATE",
+      "name": { "zh": "专科", "en": "Associate Degree" },
+      "level": 2,
+      "category": "学历",
+      "description": { "zh": "大学专科毕业证书", "en": "Junior college diploma" },
+      "durationYears": 3
+    },
+    {
+      "code": "BACHELOR",
+      "name": { "zh": "本科", "en": "Bachelor's Degree" },
+      "level": 3,
+      "category": "学历+学位",
+      "description": { "zh": "本科毕业证书 + 学士学位证书", "en": "Bachelor's diploma + degree certificate" },
+      "durationYears": 4,
+      "academicDegree": "学士"
+    },
+    {
+      "code": "MASTER",
+      "name": { "zh": "硕士研究生", "en": "Master's Degree" },
+      "level": 4,
+      "category": "学历+学位",
+      "description": { "zh": "硕士研究生毕业证书 + 硕士学位证书", "en": "Master's diploma + degree certificate" },
+      "durationYears": 2,
+      "academicDegree": "硕士",
+      "subtypes": ["学术型硕士", "专业型硕士"]
+    },
+    {
+      "code": "DOCTORAL",
+      "name": { "zh": "博士研究生", "en": "Doctoral Degree" },
+      "level": 5,
+      "category": "学历+学位",
+      "description": { "zh": "博士研究生毕业证书 + 博士学位证书", "en": "Doctoral diploma + degree certificate" },
+      "durationYears": 3,
+      "academicDegree": "博士"
+    },
+    {
+      "code": "POST_DOCTORAL",
+      "name": { "zh": "博士后", "en": "Post-Doctoral" },
+      "level": 6,
+      "category": "研究经历",
+      "description": { "zh": "博士后研究经历（非学历/学位）", "en": "Post-doctoral research experience (not a degree)" },
+      "note": { "zh": "博士后是研究工作经历，不是学历或学位", "en": "Post-doctoral is a research position, not an academic degree" }
+    }
+  ],
+  "credentialTypes": [
+    {
+      "code": "DIPLOMA",
+      "name": { "zh": "毕业证书", "en": "Diploma / Graduation Certificate" },
+      "description": { "zh": "证明学习经历的证书", "en": "Certificate proving completion of study" }
+    },
+    {
+      "code": "DEGREE_CERTIFICATE",
+      "name": { "zh": "学位证书", "en": "Academic Degree Certificate" },
+      "description": { "zh": "证明学术水平的证书", "en": "Certificate proving academic achievement" }
+    },
+    {
+      "code": "GRADUATE_CERTIFICATE",
+      "name": { "zh": "结业证书", "en": "Completion Certificate" },
+      "description": { "zh": "完成学业但未达到毕业要求", "en": "Completed coursework but did not meet graduation requirements" }
+    },
+    {
+      "code": "DROP_OUT_CERTIFICATE",
+      "name": { "zh": "肄业证书", "en": "Attendance Certificate" },
+      "description": { "zh": "未完成学业", "en": "Did not complete the program" }
+    }
+  ]
+}

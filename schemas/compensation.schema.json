@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hr-agent.dev/schemas/compensation.schema.json",
+  "title": "Compensation Schema",
+  "description": "薪酬福利JSON Schema验证",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "metadata": { "$ref": "_meta/common.schema.json#/$defs/Metadata" },
+    "components": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Component" }
+    },
+    "socialInsurance": { "type": "object" },
+    "housingFund": { "type": "object" },
+    "individualIncomeTax": { "type": "object" }
+  },
+  "required": ["metadata"],
+  "$defs": {
+    "Component": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "category": { "type": "string", "enum": ["FIXED", "VARIABLE", "OTHER"] },
+        "payFrequency": { "type": "string", "enum": ["MONTHLY", "QUARTERLY", "ANNUAL", "ONE_TIME", "AS_NEEDED"] },
+        "description": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "legalReference": { "type": "string" }
+      },
+      "required": ["code", "name", "category"]
+    }
+  }
+}

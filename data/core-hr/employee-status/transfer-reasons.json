@@ -1,0 +1,72 @@
+{
+  "$schema": "../../../schemas/employee-status.schema.json",
+  "metadata": {
+    "version": "0.1.0",
+    "lastUpdated": "2026-05-24",
+    "description": { "zh": "员工异动类型与原因分类", "en": "Employee transfer types and reason classification" }
+  },
+  "transferTypes": [
+    {
+      "code": "PROMOTION",
+      "name": { "zh": "晋升", "en": "Promotion" },
+      "category": "UPWARD",
+      "reasons": [
+        { "code": "MERIT_PROMOTION", "name": { "zh": "绩效晋升", "en": "Merit-Based Promotion" } },
+        { "code": "SENIORITY_PROMOTION", "name": { "zh": "资历晋升", "en": "Seniority-Based Promotion" } },
+        { "code": "VACANCY_FILL", "name": { "zh": "填补空缺", "en": "Vacancy Filling" } },
+        { "code": "RESTRUCTURING_PROMOTION", "name": { "zh": "组织调整晋升", "en": "Restructuring Promotion" } }
+      ]
+    },
+    {
+      "code": "DEMOTION",
+      "name": { "zh": "降职", "en": "Demotion" },
+      "category": "DOWNWARD",
+      "reasons": [
+        { "code": "PERFORMANCE_DEMOTION", "name": { "zh": "绩效不达标", "en": "Performance Below Standard" } },
+        { "code": "DISCIPLINARY_DEMOTION", "name": { "zh": "纪律处分", "en": "Disciplinary Action" } },
+        { "code": "RESTRUCTURING_DEMOTION", "name": { "zh": "组织调整降职", "en": "Restructuring Demotion" } }
+      ]
+    },
+    {
+      "code": "LATERAL_TRANSFER",
+      "name": { "zh": "平级调动", "en": "Lateral Transfer" },
+      "category": "LATERAL",
+      "reasons": [
+        { "code": "BUSINESS_NEED", "name": { "zh": "业务需要", "en": "Business Need" } },
+        { "code": "EMPLOYEE_REQUEST", "name": { "zh": "个人申请", "en": "Employee Request" } },
+        { "code": "ROTATION", "name": { "zh": "轮岗培养", "en": "Job Rotation" } },
+        { "code": "CONFLICT_RESOLUTION", "name": { "zh": "冲突调解", "en": "Conflict Resolution" } }
+      ]
+    },
+    {
+      "code": "SECONDMENT",
+      "name": { "zh": "借调", "en": "Secondment" },
+      "category": "TEMPORARY",
+      "reasons": [
+        { "code": "PROJECT_SECONDMENT", "name": { "zh": "项目借调", "en": "Project Secondment" } },
+        { "code": "GROUP_SECONDMENT", "name": { "zh": "集团内借调", "en": "Group Internal Secondment" } },
+        { "code": "GOVERNMENT_SECONDMENT", "name": { "zh": "政府借调", "en": "Government Secondment" } }
+      ]
+    },
+    {
+      "code": "DEPARTMENT_CHANGE",
+      "name": { "zh": "部门调整", "en": "Department Change" },
+      "category": "ORGANIZATIONAL",
+      "reasons": [
+        { "code": "ORG_RESTRUCTURING", "name": { "zh": "组织架构调整", "en": "Organizational Restructuring" } },
+        { "code": "NEW_DEPARTMENT", "name": { "zh": "新设部门", "en": "New Department Creation" } },
+        { "code": "DEPARTMENT_MERGE", "name": { "zh": "部门合并", "en": "Department Merger" } }
+      ]
+    },
+    {
+      "code": "LOCATION_CHANGE",
+      "name": { "zh": "工作地点变更", "en": "Location Change" },
+      "category": "GEOGRAPHIC",
+      "reasons": [
+        { "code": "OFFICE_RELOCATION", "name": { "zh": "办公地点搬迁", "en": "Office Relocation" } },
+        { "code": "BRANCH_TRANSFER", "name": { "zh": "分支机构调动", "en": "Branch Transfer" } },
+        { "code": "REMOTE_WORK", "name": { "zh": "转为远程办公", "en": "Transition to Remote Work" } }
+      ]
+    }
+  ]
+}

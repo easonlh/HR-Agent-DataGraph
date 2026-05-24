@@ -1,0 +1,108 @@
+{
+  "$schema": "../../schemas/offboarding-taxonomy.schema.json",
+  "metadata": {
+    "version": "0.1.0",
+    "lastUpdated": "2026-05-24",
+    "legalBasis": [
+      "《中华人民共和国劳动合同法》第46条、第47条、第87条"
+    ],
+    "description": {
+      "zh": "经济补偿金计算规则，覆盖N、N+1、2N三种法定场景",
+      "en": "Severance calculation rules covering N, N+1, and 2N statutory scenarios"
+    }
+  },
+
+  "formulas": {
+    "N": {
+      "code": "N",
+      "name": { "zh": "经济补偿金", "en": "Statutory Severance" },
+      "description": { "zh": "每满一年支付一个月工资，六个月以上不满一年按一年计算，不满六个月支付半个月工资", "en": "One month salary per year of service; 6+ months counts as 1 year; under 6 months = half month" },
+      "legalReference": "劳动合同法 第47条",
+      "applicableScenarios": [
+        "TERMINATION_WITHOUT_CAUSE",
+        "LAYOFF",
+        "MUTUAL_AGREEMENT",
+        "CONTRACT_EXPIRY",
+        "CONTRACT_NON_RENEWAL_EMPLOYER"
+      ],
+      "calculation": {
+        "baseMonthlySalary": {
+          "description": { "zh": "离职前12个月平均工资", "en": "Average monthly salary of the 12 months before termination" },
+          "includes": ["基本工资", "绩效奖金", "津贴补贴", "加班工资", "年终奖分摊"],
+          "excludes": ["报销款项", "福利费用"],
+          "legalReference": "劳动合同法实施条例 第27条"
+        },
+        "serviceYears": {
+          "description": { "zh": "在本单位的工作年限", "en": "Years of service at the current employer" },
+          "roundingRule": {
+            "thresholdMonths": 6,
+            "overThreshold": "round_up_to_one_year",
+            "underThreshold": "round_to_half_year",
+            "description": { "zh": "六个月以上不满一年的，按一年计算；不满六个月的，向劳动者支付半个月工资", "en": "6+ months counts as 1 year; under 6 months = half month salary" }
+          }
+        },
+        "salaryCap": {
+          "description": { "zh": "月工资上限为当地上年度职工月平均工资三倍", "en": "Monthly salary capped at 3x local average monthly wage" },
+          "capMultiplier": 3,
+          "maxCompensationYears": 12,
+          "legalReference": "劳动合同法 第47条第2款"
+        }
+      }
+    },
+    "N_PLUS_1": {
+      "code": "N_PLUS_1",
+      "name": { "zh": "经济补偿金+代通知金", "en": "Severance + Payment in Lieu of Notice" },
+      "description": { "zh": "经济补偿金N + 额外一个月工资（未提前30天通知时适用）", "en": "N severance + 1 month salary when 30-day notice was not given" },
+      "legalReference": "劳动合同法 第40条",
+      "applicableScenarios": [
+        "TERMINATION_WITHOUT_CAUSE_IMMEDIATE"
+      ],
+      "components": {
+        "severance": { "$formula": "N" },
+        "noticePayment": {
+          "description": { "zh": "代通知金，按劳动者上一个月的工资标准确定", "en": "Payment in lieu of notice, based on the employee's last month salary" },
+          "basis": "last_month_salary"
+        }
+      }
+    },
+    "TWO_N": {
+      "code": "TWO_N",
+      "name": { "zh": "违法解除赔偿金", "en": "Illegal Termination Compensation" },
+      "description": { "zh": "用人单位违法解除劳动合同，按经济补偿金标准的二倍支付赔偿金", "en": "Employer illegally terminates contract, pays 2x the statutory severance" },
+      "legalReference": "劳动合同法 第87条",
+      "applicableScenarios": [
+        "ILLEGAL_TERMINATION"
+      ],
+      "calculation": {
+        "base": { "$formula": "N" },
+        "multiplier": 2,
+        "note": {
+          "zh": "支付赔偿金后不再支付经济补偿金",
+          "en": "No additional severance required after paying illegal termination compensation"
+        },
+        "legalReference": "劳动合同法实施条例 第25条"
+      }
+    }
+  },
+
+  "specialRules": [
+    {
+      "code": "PROBATION_TERMINATION",
+      "name": { "zh": "试用期解除" },
+      "rule": { "zh": "试用期不符合录用条件解除无需支付补偿", "en": "No severance for probation failure termination" },
+      "legalReference": "劳动合同法 第39条第1项"
+    },
+    {
+      "code": "CONTRACT_EXPIRY_EMPLOYER_DECLINES",
+      "name": { "zh": "合同期满企业不续签" },
+      "rule": { "zh": "企业降低条件续签被拒或企业不续签，需支付N", "en": "Employer declines renewal or offers reduced terms, must pay N" },
+      "legalReference": "劳动合同法 第46条第5项"
+    },
+    {
+      "code": "PERSONAL_INCOME_TAX",
+      "name": { "zh": "个税处理" },
+      "rule": { "zh": "当地上年职工平均工资3倍以内的部分免征个人所得税", "en": "Severance within 3x local average annual salary is tax-exempt" },
+      "legalReference": "财税[2018]164号"
+    }
+  ]
+}

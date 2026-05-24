@@ -1,0 +1,102 @@
+{
+  "$schema": "../../../schemas/compensation.schema.json",
+  "metadata": {
+    "version": "0.1.0",
+    "lastUpdated": "2026-05-24",
+    "description": { "zh": "薪酬组件分类标准", "en": "Standard compensation component classification" }
+  },
+  "components": [
+    {
+      "code": "BASE_SALARY",
+      "name": { "zh": "基本工资", "en": "Base Salary" },
+      "category": "FIXED",
+      "payFrequency": "MONTHLY",
+      "description": { "zh": "岗位基本薪资", "en": "Basic position salary" }
+    },
+    {
+      "code": "POSITION_ALLOWANCE",
+      "name": { "zh": "岗位津贴", "en": "Position Allowance" },
+      "category": "FIXED",
+      "payFrequency": "MONTHLY",
+      "description": { "zh": "岗位相关津贴补贴", "en": "Position-related allowance" }
+    },
+    {
+      "code": "SENIORITY_ALLOWANCE",
+      "name": { "zh": "工龄补贴", "en": "Seniority Allowance" },
+      "category": "FIXED",
+      "payFrequency": "MONTHLY",
+      "description": { "zh": "按工作年限发放的补贴", "en": "Allowance based on years of service" }
+    },
+    {
+      "code": "TRANSPORT_ALLOWANCE",
+      "name": { "zh": "交通补贴", "en": "Transport Allowance" },
+      "category": "FIXED",
+      "payFrequency": "MONTHLY",
+      "description": { "zh": "通勤交通补贴", "en": "Commuting transportation subsidy" }
+    },
+    {
+      "code": "MEAL_ALLOWANCE",
+      "name": { "zh": "餐饮补贴", "en": "Meal Allowance" },
+      "category": "FIXED",
+      "payFrequency": "MONTHLY",
+      "description": { "zh": "工作日餐饮补贴", "en": "Working day meal subsidy" }
+    },
+    {
+      "code": "HOUSING_ALLOWANCE",
+      "name": { "zh": "住房补贴", "en": "Housing Allowance" },
+      "category": "FIXED",
+      "payFrequency": "MONTHLY",
+      "description": { "zh": "住房相关补贴", "en": "Housing-related subsidy" }
+    },
+    {
+      "code": "PERFORMANCE_BONUS",
+      "name": { "zh": "绩效奖金", "en": "Performance Bonus" },
+      "category": "VARIABLE",
+      "payFrequency": "QUARTERLY",
+      "description": { "zh": "基于绩效考核的浮动奖金", "en": "Variable bonus based on performance review" }
+    },
+    {
+      "code": "ANNUAL_BONUS",
+      "name": { "zh": "年终奖", "en": "Annual Bonus" },
+      "category": "VARIABLE",
+      "payFrequency": "ANNUAL",
+      "description": { "zh": "年度综合奖金", "en": "Annual comprehensive bonus" }
+    },
+    {
+      "code": "PROJECT_BONUS",
+      "name": { "zh": "项目奖金", "en": "Project Bonus" },
+      "category": "VARIABLE",
+      "payFrequency": "ONE_TIME",
+      "description": { "zh": "项目完成后的奖金", "en": "Bonus upon project completion" }
+    },
+    {
+      "code": "SALES_COMMISSION",
+      "name": { "zh": "销售提成", "en": "Sales Commission" },
+      "category": "VARIABLE",
+      "payFrequency": "MONTHLY",
+      "description": { "zh": "销售业绩提成", "en": "Sales performance commission" }
+    },
+    {
+      "code": "OVERTIME_PAY",
+      "name": { "zh": "加班工资", "en": "Overtime Pay" },
+      "category": "VARIABLE",
+      "payFrequency": "MONTHLY",
+      "description": { "zh": "法定加班工资（1.5x/2x/3x）", "en": "Statutory overtime pay (1.5x/2x/3x)" },
+      "legalReference": "劳动法 第44条"
+    },
+    {
+      "code": "SHIFT_ALLOWANCE",
+      "name": { "zh": "值班/夜班津贴", "en": "Shift Allowance" },
+      "category": "VARIABLE",
+      "payFrequency": "MONTHLY",
+      "description": { "zh": "轮班、夜班工作津贴", "en": "Shift work and night shift allowance" }
+    },
+    {
+      "code": "OTHER_TAXABLE",
+      "name": { "zh": "其他应税所得", "en": "Other Taxable Income" },
+      "category": "OTHER",
+      "payFrequency": "AS_NEEDED",
+      "description": { "zh": "其他需要计入个税的收入", "en": "Other income subject to individual income tax" }
+    }
+  ]
+}

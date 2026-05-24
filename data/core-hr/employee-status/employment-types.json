@@ -1,0 +1,81 @@
+{
+  "$schema": "../../../schemas/employee-status.schema.json",
+  "metadata": {
+    "version": "0.1.0",
+    "lastUpdated": "2026-05-24",
+    "description": { "zh": "用工关系类型标准定义", "en": "Standard employment relationship types" }
+  },
+  "employmentTypes": [
+    {
+      "code": "FULL_TIME_REGULAR",
+      "name": { "zh": "全日制正式员工", "en": "Full-Time Regular Employee" },
+      "laborContractType": "FIXED_TERM_OR_OPEN_ENDED",
+      "socialInsuranceRequired": true,
+      "description": { "zh": "签订劳动合同的全日制正式用工", "en": "Full-time employee with labor contract" }
+    },
+    {
+      "code": "PROBATION",
+      "name": { "zh": "试用期员工", "en": "Probationary Employee" },
+      "laborContractType": "FIXED_TERM",
+      "socialInsuranceRequired": true,
+      "maxProbationMonths": 6,
+      "description": { "zh": "试用期内的劳动合同员工", "en": "Employee within probation period" }
+    },
+    {
+      "code": "INTERN",
+      "name": { "zh": "实习生", "en": "Intern" },
+      "laborContractType": "INTERNSHIP_AGREEMENT",
+      "socialInsuranceRequired": false,
+      "description": { "zh": "在校学生实习，签订实习协议", "en": "Student intern with internship agreement" }
+    },
+    {
+      "code": "PART_TIME",
+      "name": { "zh": "非全日制用工", "en": "Part-Time Employee" },
+      "laborContractType": "PART_TIME_AGREEMENT",
+      "socialInsuranceRequired": false,
+      "description": { "zh": "非全日制劳动合同，平均每日不超过4小时", "en": "Part-time labor contract, max 4 hours/day average" },
+      "legalReference": "劳动合同法 第68条"
+    },
+    {
+      "code": "DISPATCH",
+      "name": { "zh": "劳务派遣", "en": "Labor Dispatch" },
+      "laborContractType": "TRIPARTITE",
+      "socialInsuranceRequired": true,
+      "description": { "zh": "由劳务派遣公司派遣至用工单位", "en": "Dispatched by labor dispatch agency" },
+      "legalReference": "劳动合同法 第57-67条"
+    },
+    {
+      "code": "OUTSOURCED",
+      "name": { "zh": "外包人员", "en": "Outsourced Staff" },
+      "laborContractType": "SERVICE_AGREEMENT",
+      "socialInsuranceRequired": false,
+      "description": { "zh": "与外包公司签订合同，在甲方场地工作", "en": "Contracted via outsourcing company" }
+    },
+    {
+      "code": "CONSULTANT",
+      "name": { "zh": "顾问/咨询", "en": "Consultant" },
+      "laborContractType": "SERVICE_CONTRACT",
+      "socialInsuranceRequired": false,
+      "description": { "zh": "独立顾问，签订服务合同", "en": "Independent consultant with service contract" }
+    },
+    {
+      "code": "RETIREMENT_REHIRE",
+      "name": { "zh": "退休返聘", "en": "Retired Rehire" },
+      "laborContractType": "RETIREMENT_AGREEMENT",
+      "socialInsuranceRequired": false,
+      "description": { "zh": "已退休人员重新聘用", "en": "Rehired retired employee" }
+    },
+    {
+      "code": "FAMILY_SERVICE",
+      "name": { "zh": "家政/管家", "en": "Domestic Service" },
+      "laborContractType": "SERVICE_AGREEMENT",
+      "socialInsuranceRequired": false,
+      "description": { "zh": "家政服务人员，适用《民法典》而非《劳动合同法》", "en": "Domestic worker, governed by Civil Code rather than Labor Contract Law" }
+    },
+    {
+      "code": "OTHER",
+      "name": { "zh": "其他用工形式", "en": "Other Employment Type" },
+      "description": { "zh": "其他非标准用工形式", "en": "Other non-standard employment arrangements" }
+    }
+  ]
+}

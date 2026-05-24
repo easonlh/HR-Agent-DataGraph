@@ -1,0 +1,96 @@
+{
+  "$schema": "../../../schemas/compensation.schema.json",
+  "metadata": {
+    "version": "0.1.0",
+    "lastUpdated": "2026-05-24",
+    "description": { "zh": "法定福利组件结构（五险一金+个人所得税）", "en": "Statutory benefit components (Five Insurances + Housing Fund + Individual Income Tax)" },
+    "legalBasis": [
+      "《中华人民共和国社会保险法》",
+      "《住房公积金管理条例》",
+      "《中华人民共和国个人所得税法》"
+    ]
+  },
+  "socialInsurance": {
+    "code": "SOCIAL_INSURANCE",
+    "name": { "zh": "社会保险（五险）", "en": "Social Insurance (Five Insurances)" },
+    "components": [
+      {
+        "code": "PENSION",
+        "name": { "zh": "基本养老保险", "en": "Basic Pension Insurance" },
+        "employerRate": 0.16,
+        "employeeRate": 0.08,
+        "description": { "zh": "退休后按月领取养老金", "en": "Monthly pension after retirement" },
+        "note": { "zh": "企业缴费比例16%为全国统一标准，部分地区有过渡性费率", "en": "16% employer rate is the national standard; some regions have transitional rates" }
+      },
+      {
+        "code": "MEDICAL",
+        "name": { "zh": "基本医疗保险", "en": "Basic Medical Insurance" },
+        "employerRate": 0.08,
+        "employeeRate": 0.02,
+        "description": { "zh": "门诊和住院医疗费用报销", "en": "Outpatient and inpatient medical expense reimbursement" },
+        "note": { "zh": "含大病统筹，部分地区企业费率在6%-10%之间", "en": "Includes critical illness pooling; employer rate ranges 6%-10% in some regions" }
+      },
+      {
+        "code": "UNEMPLOYMENT",
+        "name": { "zh": "失业保险", "en": "Unemployment Insurance" },
+        "employerRate": 0.005,
+        "employeeRate": 0.005,
+        "description": { "zh": "非自愿失业后领取失业金", "en": "Unemployment benefits for involuntary job loss" }
+      },
+      {
+        "code": "WORK_INJURY",
+        "name": { "zh": "工伤保险", "en": "Work Injury Insurance" },
+        "employerRate": 0.002,
+        "employeeRate": 0,
+        "description": { "zh": "工伤医疗和伤残补偿", "en": "Work injury medical and disability compensation" },
+        "note": { "zh": "费率按行业风险等级浮动，个人不缴费", "en": "Rate varies by industry risk level; no employee contribution" }
+      },
+      {
+        "code": "MATERNITY",
+        "name": { "zh": "生育保险", "en": "Maternity Insurance" },
+        "employerRate": 0.005,
+        "employeeRate": 0,
+        "description": { "zh": "生育医疗费和生育津贴", "en": "Maternity medical expenses and maternity allowance" },
+        "note": { "zh": "已并入医疗保险的地区不再单独缴纳", "en": "No separate contribution in regions where merged with medical insurance" }
+      }
+    ]
+  },
+  "housingFund": {
+    "code": "HOUSING_FUND",
+    "name": { "zh": "住房公积金", "en": "Housing Provident Fund" },
+    "employerRate": 0.12,
+    "employeeRate": 0.12,
+    "rateRange": { "min": 0.05, "max": 0.12 },
+    "description": { "zh": "住房储蓄，可用于购房贷款和租房提取", "en": "Housing savings for home purchase loans and rental withdrawal" },
+    "legalReference": "《住房公积金管理条例》"
+  },
+  "individualIncomeTax": {
+    "code": "IIT",
+    "name": { "zh": "个人所得税", "en": "Individual Income Tax (IIT)" },
+    "description": { "zh": "综合所得适用超额累进税率", "en": "Comprehensive income subject to progressive tax rates" },
+    "taxBrackets": [
+      { "lower": 0, "upper": 36000, "rate": 0.03, "quickDeduction": 0 },
+      { "lower": 36000, "upper": 144000, "rate": 0.10, "quickDeduction": 2520 },
+      { "lower": 144000, "upper": 300000, "rate": 0.20, "quickDeduction": 16920 },
+      { "lower": 300000, "upper": 420000, "rate": 0.25, "quickDeduction": 31920 },
+      { "lower": 420000, "upper": 660000, "rate": 0.30, "quickDeduction": 52920 },
+      { "lower": 660000, "upper": 960000, "rate": 0.35, "quickDeduction": 85920 },
+      { "lower": 960000, "upper": null, "rate": 0.45, "quickDeduction": 181920 }
+    ],
+    "standardDeduction": {
+      "monthlyAmount": 5000,
+      "annualAmount": 60000,
+      "description": { "zh": "每月免征额5000元", "en": "Monthly tax-free threshold of 5,000 RMB" }
+    },
+    "specialDeductions": [
+      { "code": "CHILD_EDUCATION", "name": { "zh": "子女教育", "en": "Children's Education" }, "monthlyAmount": 2000 },
+      { "code": "CONTINUING_EDUCATION", "name": { "zh": "继续教育", "en": "Continuing Education" }, "monthlyAmount": 400 },
+      { "code": "SERIOUS_ILLNESS", "name": { "zh": "大病医疗", "en": "Serious Illness Medical" }, "annualCap": 80000 },
+      { "code": "HOUSING_LOAN", "name": { "zh": "住房贷款利息", "en": "Housing Loan Interest" }, "monthlyAmount": 1000 },
+      { "code": "HOUSING_RENT", "name": { "zh": "住房租金", "en": "Housing Rent" }, "monthlyAmount": 1500 },
+      { "code": "ELDERLY_CARE", "name": { "zh": "赡养老人", "en": "Elderly Care" }, "monthlyAmount": 3000 },
+      { "code": "INFANT_CARE", "name": { "zh": "3岁以下婴幼儿照护", "en": "Infant Care (Under 3)" }, "monthlyAmount": 2000 }
+    ],
+    "legalReference": "《个人所得税法》(2018修正)"
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "$schema": "../../schemas/skill-graph.schema.json",
+  "metadata": {
+    "version": "0.1.0",
+    "lastUpdated": "2026-05-24",
+    "description": {
+      "zh": "OCR证件解析输入规范，定义入职场景中常见证件的字段提取与校验规则",
+      "en": "OCR document parsing input specification for onboarding documents with field extraction and validation rules"
+    }
+  },
+
+  "supportedDocuments": [
+    {
+      "type": "ID_CARD",
+      "name": { "zh": "居民身份证", "en": "Resident ID Card" },
+      "ocrFields": [
+        { "field": "name", "zhLabel": "姓名", "type": "string", "required": true },
+        { "field": "gender", "zhLabel": "性别", "type": "enum", "values": ["男", "女"], "required": true },
+        { "field": "ethnicity", "zhLabel": "民族", "type": "string", "required": true },
+        { "field": "dateOfBirth", "zhLabel": "出生日期", "type": "date", "required": true },
+        { "field": "address", "zhLabel": "住址", "type": "string", "required": true },
+        { "field": "idNumber", "zhLabel": "公民身份号码", "type": "string", "required": true },
+        { "field": "issuingAuthority", "zhLabel": "签发机关", "type": "string", "required": true },
+        { "field": "validityStart", "zhLabel": "有效期限起", "type": "date", "required": true },
+        { "field": "validityEnd", "zhLabel": "有效期限止", "type": "date", "required": false }
+      ],
+      "validationRules": [
+        {
+          "field": "idNumber",
+          "rule": "REGEX",
+          "pattern": "^[1-9]\\d{5}(19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])\\d{3}[\\dXx]$",
+          "errorMessage": { "zh": "身份证号格式不正确", "en": "Invalid ID number format" }
+        },
+        {
+          "field": "idNumber",
+          "rule": "CHECKSUM",
+          "description": { "zh": "第18位校验码验证", "en": "18th digit checksum verification" }
+        }
+      ]
+    },
+    {
+      "type": "EDUCATION_CERTIFICATE",
+      "name": { "zh": "学历证书", "en": "Education Certificate" },
+      "ocrFields": [
+        { "field": "name", "zhLabel": "姓名", "type": "string", "required": true },
+        { "field": "institution", "zhLabel": "学校名称", "type": "string", "required": true },
+        { "field": "degree", "zhLabel": "学历层次", "type": "string", "required": true },
+        { "field": "major", "zhLabel": "专业", "type": "string", "required": true },
+        { "field": "graduationDate", "zhLabel": "毕业日期", "type": "date", "required": true },
+        { "field": "certificateNumber", "zhLabel": "证书编号", "type": "string", "required": true }
+      ],
+      "validationRules": [
+        {
+          "field": "institution",
+          "rule": "LOOKUP",
+          "lookupDataset": "foundation/higher-education/institutions.json",
+          "matchField": "name.zh",
+          "errorMessage": { "zh": "高校名称未在标准库中找到", "en": "Institution name not found in standard dataset" }
+        },
+        {
+          "field": "degree",
+          "rule": "LOOKUP",
+          "lookupDataset": "foundation/higher-education/degree-types.json",
+          "matchField": "name.zh",
+          "errorMessage": { "zh": "学历层次不在标准范围内", "en": "Degree level not in standard range" }
+        }
+      ]
+    },
+    {
+      "type": "SEPARATION_CERTIFICATE",
+      "name": { "zh": "离职证明", "en": "Separation Certificate" },
+      "ocrFields": [
+        { "field": "name", "zhLabel": "姓名", "type": "string", "required": true },
+        { "field": "idNumber", "zhLabel": "身份证号", "type": "string", "required": true },
+        { "field": "companyName", "zhLabel": "原单位名称", "type": "string", "required": true },
+        { "field": "position", "zhLabel": "岗位", "type": "string", "required": true },
+        { "field": "hireDate", "zhLabel": "入职日期", "type": "date", "required": true },
+        { "field": "separationDate", "zhLabel": "离职日期", "type": "date", "required": true },
+        { "field": "separationType", "zhLabel": "离职类型", "type": "string", "required": false }
+      ],
+      "validationRules": [
+        {
+          "field": "separationType",
+          "rule": "LOOKUP",
+          "lookupDataset": "offboarding/taxonomy.json",
+          "lookupPath": "terminationTypes",
+          "matchField": "name.zh",
+          "errorMessage": { "zh": "离职类型无法映射到标准分类", "en": "Separation type cannot be mapped to standard taxonomy" }
+        }
+      ]
+    },
+    {
+      "type": "RESUME",
+      "name": { "zh": "个人简历", "en": "Resume / CV" },
+      "ocrFields": [
+        { "field": "name", "zhLabel": "姓名", "type": "string", "required": true },
+        { "field": "phone", "zhLabel": "联系电话", "type": "string", "required": true },
+        { "field": "email", "zhLabel": "电子邮箱", "type": "string", "required": false },
+        { "field": "education", "zhLabel": "教育经历", "type": "array", "required": true },
+        { "field": "workExperience", "zhLabel": "工作经历", "type": "array", "required": true },
+        { "field": "skills", "zhLabel": "技能标签", "type": "array", "required": false }
+      ],
+      "validationRules": []
+    }
+  ]
+}

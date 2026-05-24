@@ -1,0 +1,43 @@
+{
+  "$schema": "../../../schemas/employee-status.schema.json",
+  "metadata": {
+    "version": "0.1.0",
+    "lastUpdated": "2026-05-24",
+    "description": { "zh": "员工全生命周期状态映射与合法转换规则", "en": "Employee full lifecycle status mapping and valid transition rules" }
+  },
+  "statuses": [
+    { "code": "PENDING_HIRE", "name": { "zh": "待入职", "en": "Pending Hire" }, "category": "PRE_ACTIVE", "isActive": false },
+    { "code": "ON_PROBATION", "name": { "zh": "试用期", "en": "On Probation" }, "category": "ACTIVE", "isActive": true },
+    { "code": "REGULAR", "name": { "zh": "正式在职", "en": "Regular Employee" }, "category": "ACTIVE", "isActive": true },
+    { "code": "TRANSFER", "name": { "zh": "异动中", "en": "In Transfer" }, "category": "ACTIVE", "isActive": true },
+    { "code": "LEAVE_OF_ABSENCE", "name": { "zh": "停薪留职", "en": "Leave of Absence" }, "category": "INACTIVE", "isActive": false },
+    { "code": "LONG_TERM_SICK", "name": { "zh": "长期病假", "en": "Long-Term Sick Leave" }, "category": "INACTIVE", "isActive": true },
+    { "code": "MATERNITY_LEAVE", "name": { "zh": "产假/陪产假", "en": "Maternity/Paternity Leave" }, "category": "INACTIVE", "isActive": true },
+    { "code": "SEPARATION_NOTICE", "name": { "zh": "离职通知期", "en": "Separation Notice Period" }, "category": "TRANSITION", "isActive": true },
+    { "code": "SEPARATED", "name": { "zh": "已离职", "en": "Separated" }, "category": "TERMINAL", "isActive": false },
+    { "code": "RETIRED", "name": { "zh": "已退休", "en": "Retired" }, "category": "TERMINAL", "isActive": false },
+    { "code": "DECEASED", "name": { "zh": "已故", "en": "Deceased" }, "category": "TERMINAL", "isActive": false }
+  ],
+  "validTransitions": [
+    { "from": "PENDING_HIRE", "to": "ON_PROBATION", "trigger": "ONBOARDING_COMPLETE" },
+    { "from": "PENDING_HIRE", "to": "SEPARATED", "trigger": "OFFER_WITHDRAWN" },
+    { "from": "ON_PROBATION", "to": "REGULAR", "trigger": "PROBATION_PASSED" },
+    { "from": "ON_PROBATION", "to": "SEPARATED", "trigger": "PROBATION_FAILED" },
+    { "from": "ON_PROBATION", "to": "SEPARATED", "trigger": "RESIGNATION" },
+    { "from": "REGULAR", "to": "TRANSFER", "trigger": "TRANSFER_INITIATED" },
+    { "from": "REGULAR", "to": "LEAVE_OF_ABSENCE", "trigger": "LOA_APPROVED" },
+    { "from": "REGULAR", "to": "LONG_TERM_SICK", "trigger": "SICK_LEAVE_EXTENDED" },
+    { "from": "REGULAR", "to": "MATERNITY_LEAVE", "trigger": "MATERNITY_START" },
+    { "from": "REGULAR", "to": "SEPARATION_NOTICE", "trigger": "RESIGNATION_SUBMITTED" },
+    { "from": "REGULAR", "to": "SEPARATION_NOTICE", "trigger": "TERMINATION_INITIATED" },
+    { "from": "TRANSFER", "to": "REGULAR", "trigger": "TRANSFER_COMPLETE" },
+    { "from": "LEAVE_OF_ABSENCE", "to": "REGULAR", "trigger": "LOA_RETURN" },
+    { "from": "LEAVE_OF_ABSENCE", "to": "SEPARATED", "trigger": "RESIGNATION" },
+    { "from": "LONG_TERM_SICK", "to": "REGULAR", "trigger": "RETURN_TO_WORK" },
+    { "from": "LONG_TERM_SICK", "to": "SEPARATION_NOTICE", "trigger": "MEDICAL_TERMINATION" },
+    { "from": "MATERNITY_LEAVE", "to": "REGULAR", "trigger": "MATERNITY_RETURN" },
+    { "from": "SEPARATION_NOTICE", "to": "SEPARATED", "trigger": "LAST_WORK_DAY" },
+    { "from": "REGULAR", "to": "RETIRED", "trigger": "RETIREMENT_AGE_REACHED" },
+    { "from": "REGULAR", "to": "DECEASED", "trigger": "DEATH_REPORTED" }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hr-agent.dev/schemas/offboarding-taxonomy.schema.json",
+  "title": "Offboarding Taxonomy Schema",
+  "description": "离职分类体系JSON Schema验证",
+  "$ref": "https://hr-agent.dev/schemas/_meta/common.schema.json",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "metadata": { "$ref": "_meta/common.schema.json#/$defs/Metadata" },
+    "terminationTypes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/TerminationType" }
+    },
+    "exitProcedure": { "$ref": "#/$defs/ExitProcedure" },
+    "blacklist": { "$ref": "#/$defs/Blacklist" }
+  },
+  "required": ["metadata", "terminationTypes"],
+  "$defs": {
+    "TerminationType": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "description": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "legalReference": { "type": "string" },
+        "subtypes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/TerminationSubtype" }
+        }
+      },
+      "required": ["code", "name"]
+    },
+    "TerminationSubtype": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "noticePeriodDays": { "type": "integer", "minimum": 0 },
+        "requiresApproval": { "type": "boolean" },
+        "severanceApplicable": { "type": "boolean" },
+        "severanceFormula": { "type": "string", "enum": ["N", "N+1", "2N", "NEGOTIABLE"] },
+        "legalReference": { "type": "string" },
+        "approvalChain": { "type": "array", "items": { "type": "string" } },
+        "reasons": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/TerminationReason" }
+        },
+        "protectedGroups": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ProtectedGroup" }
+        }
+      },
+      "required": ["code", "name"]
+    },
+    "TerminationReason": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "category": { "type": "string" },
+        "legalReference": { "type": "string" },
+        "documentationRequired": { "type": "array", "items": { "type": "string" } },
+        "exitInterviewRecommended": { "type": "boolean" },
+        "retentionRiskFlag": { "type": "boolean" }
+      },
+      "required": ["code", "name", "category"]
+    },
+    "ExitProcedure": {
+      "type": "object",
+      "properties": {
+        "standardSteps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "step": { "type": "integer" },
+              "code": { "type": "string" },
+              "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+              "responsibleParty": { "type": "string" }
+            },
+            "required": ["step", "code", "name", "responsibleParty"]
+          }
+        },
+        "legalDeadlineDays": { "type": "integer" },
+        "legalDeadlineReference": { "type": "string" }
+      }
+    },
+    "Blacklist": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": { "type": "string" },
+              "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" }
+            }
+          }
+        },
+        "retentionPeriodYears": { "type": "integer" }
+      }
+    },
+    "ProtectedGroup": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "description": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" }
+      }
+    }
+  }
+}

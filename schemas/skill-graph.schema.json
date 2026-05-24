@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hr-agent.dev/schemas/skill-graph.schema.json",
+  "title": "AI Agent Skill Graph Schema",
+  "description": "AI Agent技能图谱JSON Schema验证",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "metadata": { "$ref": "_meta/common.schema.json#/$defs/Metadata" },
+    "skillTaxonomy": { "$ref": "#/$defs/SkillTaxonomy" },
+    "evidenceTypes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/EvidenceType" }
+    },
+    "capabilityVectorSchema": { "type": "object" },
+    "agentBehaviorSpec": { "type": "object" }
+  },
+  "required": ["metadata"],
+  "$defs": {
+    "SkillTaxonomy": {
+      "type": "object",
+      "properties": {
+        "dimensions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/SkillDimension" }
+        }
+      },
+      "required": ["dimensions"]
+    },
+    "SkillDimension": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "weight": { "type": "number", "minimum": 0, "maximum": 1 },
+        "subdimensions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Subdimension" }
+        }
+      },
+      "required": ["code", "name", "weight"]
+    },
+    "Subdimension": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "skills": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Skill" }
+        }
+      },
+      "required": ["code", "name"]
+    },
+    "Skill": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "category": { "type": "string" }
+      },
+      "required": ["code", "name"]
+    },
+    "EvidenceType": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "confidenceWeight": { "$ref": "_meta/common.schema.json#/$defs/ConfidenceScore" },
+        "dataSchema": { "type": "object" },
+        "inferenceRules": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/InferenceRule" }
+        }
+      },
+      "required": ["code", "name", "confidenceWeight"]
+    },
+    "InferenceRule": {
+      "type": "object",
+      "properties": {
+        "rule": { "type": "string" },
+        "description": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "mappings": { "type": "array" },
+        "keywords": { "type": "array" }
+      },
+      "required": ["rule"]
+    }
+  }
+}

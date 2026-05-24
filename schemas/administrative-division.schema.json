@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hr-agent.dev/schemas/administrative-division.schema.json",
+  "title": "Administrative Division & Education Schema",
+  "description": "行政区划与高校数据JSON Schema验证",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "metadata": { "$ref": "_meta/common.schema.json#/$defs/Metadata" },
+    "divisions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Division" }
+    },
+    "institutions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Institution" }
+    },
+    "degreeTypes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/DegreeType" }
+    },
+    "credentialTypes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/CredentialType" }
+    }
+  },
+  "required": ["metadata"],
+  "$defs": {
+    "Division": {
+      "type": "object",
+      "properties": {
+        "code": { "$ref": "_meta/common.schema.json#/$defs/AdminDivisionCode" },
+        "provinceCode": { "$ref": "_meta/common.schema.json#/$defs/AdminDivisionCode" },
+        "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "shortName": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "type": { "type": "string" }
+      },
+      "required": ["code", "name"]
+    },
+    "Institution": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "province": { "$ref": "_meta/common.schema.json#/$defs/AdminDivisionCode" },
+        "city": { "type": "string" },
+        "tier": { "type": "array", "items": { "type": "string" } },
+        "type": { "type": "string" }
+      },
+      "required": ["code", "name", "province"]
+    },
+    "DegreeType": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "level": { "type": "integer", "minimum": 1 },
+        "category": { "type": "string" },
+        "description": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "durationYears": { "type": "number" },
+        "academicDegree": { "type": "string" }
+      },
+      "required": ["code", "name", "level"]
+    },
+    "CredentialType": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "description": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" }
+      },
+      "required": ["code", "name"]
+    }
+  }
+}

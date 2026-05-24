@@ -1,0 +1,24 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": ["data/offboarding/*.json"],
+      "url": "./schemas/offboarding-taxonomy.schema.json"
+    },
+    {
+      "fileMatch": ["data/ai-agent/*.json"],
+      "url": "./schemas/skill-graph.schema.json"
+    },
+    {
+      "fileMatch": ["data/foundation/**/*.json"],
+      "url": "./schemas/administrative-division.schema.json"
+    },
+    {
+      "fileMatch": ["data/core-hr/employee-status/*.json"],
+      "url": "./schemas/employee-status.schema.json"
+    },
+    {
+      "fileMatch": ["data/core-hr/compensation/*.json"],
+      "url": "./schemas/compensation.schema.json"
+    }
+  ]
+}

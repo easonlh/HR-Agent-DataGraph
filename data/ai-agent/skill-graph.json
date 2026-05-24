@@ -1,0 +1,344 @@
+{
+  "$schema": "../../schemas/skill-graph.schema.json",
+  "metadata": {
+    "version": "0.1.0",
+    "lastUpdated": "2026-05-24",
+    "description": {
+      "zh": "AI Agent技能图谱与能力证据映射，将员工行为数据转化为标准化能力向量",
+      "en": "AI Agent skill graph and capability evidence mapping, converting employee behavioral data into standardized capability vectors"
+    }
+  },
+
+  "skillTaxonomy": {
+    "dimensions": [
+      {
+        "code": "TECHNICAL",
+        "name": { "zh": "技术能力", "en": "Technical Competency" },
+        "weight": 0.35,
+        "subdimensions": [
+          {
+            "code": "LANGUAGES",
+            "name": { "zh": "编程语言", "en": "Programming Languages" },
+            "skills": [
+              { "code": "PYTHON", "name": { "zh": "Python", "en": "Python" }, "category": "backend" },
+              { "code": "TYPESCRIPT", "name": { "zh": "TypeScript", "en": "TypeScript" }, "category": "fullstack" },
+              { "code": "JAVA", "name": { "zh": "Java", "en": "Java" }, "category": "backend" },
+              { "code": "GO", "name": { "zh": "Go", "en": "Go" }, "category": "backend" },
+              { "code": "SQL", "name": { "zh": "SQL", "en": "SQL" }, "category": "data" },
+              { "code": "RUST", "name": { "zh": "Rust", "en": "Rust" }, "category": "systems" },
+              { "code": "CPP", "name": { "zh": "C/C++", "en": "C/C++" }, "category": "systems" }
+            ]
+          },
+          {
+            "code": "DOMAINS",
+            "name": { "zh": "技术领域", "en": "Technical Domains" },
+            "skills": [
+              { "code": "SYSTEM_DESIGN", "name": { "zh": "系统设计", "en": "System Design" } },
+              { "code": "DATA_ENGINEERING", "name": { "zh": "数据工程", "en": "Data Engineering" } },
+              { "code": "ML_AI", "name": { "zh": "机器学习/AI", "en": "Machine Learning / AI" } },
+              { "code": "SECURITY", "name": { "zh": "信息安全", "en": "Information Security" } },
+              { "code": "DEVOPS", "name": { "zh": "DevOps", "en": "DevOps" } },
+              { "code": "QUALITY_ASSURANCE", "name": { "zh": "质量保障", "en": "Quality Assurance" } }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "LEADERSHIP",
+        "name": { "zh": "领导力", "en": "Leadership" },
+        "weight": 0.25,
+        "subdimensions": [
+          {
+            "code": "PEOPLE_MGMT",
+            "name": { "zh": "人员管理", "en": "People Management" },
+            "skills": [
+              { "code": "TEAM_BUILDING", "name": { "zh": "团队建设", "en": "Team Building" } },
+              { "code": "COACHING", "name": { "zh": "辅导培养", "en": "Coaching & Mentoring" } },
+              { "code": "PERFORMANCE_MGMT", "name": { "zh": "绩效管理", "en": "Performance Management" } },
+              { "code": "CONFLICT_RESOLUTION", "name": { "zh": "冲突解决", "en": "Conflict Resolution" } }
+            ]
+          },
+          {
+            "code": "STRATEGIC",
+            "name": { "zh": "战略思维", "en": "Strategic Thinking" },
+            "skills": [
+              { "code": "VISION_SETTING", "name": { "zh": "愿景制定", "en": "Vision Setting" } },
+              { "code": "STAKEHOLDER_MGMT", "name": { "zh": "干系人管理", "en": "Stakeholder Management" } },
+              { "code": "DECISION_MAKING", "name": { "zh": "决策能力", "en": "Decision Making" } }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "COMMUNICATION",
+        "name": { "zh": "沟通协作", "en": "Communication & Collaboration" },
+        "weight": 0.20,
+        "subdimensions": [
+          {
+            "code": "WRITTEN",
+            "name": { "zh": "书面表达", "en": "Written Communication" },
+            "skills": [
+              { "code": "DOCUMENTATION", "name": { "zh": "文档撰写", "en": "Documentation" } },
+              { "code": "TECHNICAL_WRITING", "name": { "zh": "技术写作", "en": "Technical Writing" } }
+            ]
+          },
+          {
+            "code": "INTERPERSONAL",
+            "name": { "zh": "人际沟通", "en": "Interpersonal Communication" },
+            "skills": [
+              { "code": "CROSS_TEAM", "name": { "zh": "跨团队协作", "en": "Cross-Team Collaboration" } },
+              { "code": "PRESENTATION", "name": { "zh": "演示汇报", "en": "Presentation" } },
+              { "code": "NEGOTIATION", "name": { "zh": "谈判协商", "en": "Negotiation" } }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "DOMAIN_EXPERTISE",
+        "name": { "zh": "业务领域专长", "en": "Domain Expertise" },
+        "weight": 0.20,
+        "subdimensions": [
+          {
+            "code": "INDUSTRY",
+            "name": { "zh": "行业知识", "en": "Industry Knowledge" },
+            "skills": [
+              { "code": "PRODUCT_THINKING", "name": { "zh": "产品思维", "en": "Product Thinking" } },
+              { "code": "BUSINESS_ANALYSIS", "name": { "zh": "业务分析", "en": "Business Analysis" } },
+              { "code": "COMPLIANCE", "name": { "zh": "合规知识", "en": "Compliance Knowledge" } }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  "evidenceTypes": [
+    {
+      "code": "GIT_COMMIT",
+      "name": { "zh": "代码提交", "en": "Git Commit" },
+      "confidenceWeight": 0.7,
+      "dataSchema": {
+        "source": "git",
+        "fields": {
+          "repository": "string — 仓库名称",
+          "commitHash": "string — SHA-1",
+          "author": "string — 提交者邮箱",
+          "message": "string — 提交信息",
+          "filesChanged": "string[] — 变更文件路径列表",
+          "linesAdded": "number",
+          "linesDeleted": "number",
+          "timestamp": "ISO-8601 datetime",
+          "branch": "string"
+        }
+      },
+      "inferenceRules": [
+        {
+          "rule": "FILE_EXTENSION_MAPPING",
+          "description": { "zh": "根据文件后缀推断编程语言技能", "en": "Infer programming language skills from file extensions" },
+          "mappings": [
+            { "pattern": "*.py", "skill": "PYTHON", "confidenceBoost": 0.05 },
+            { "pattern": "*.ts", "skill": "TYPESCRIPT", "confidenceBoost": 0.05 },
+            { "pattern": "*.tsx", "skill": "TYPESCRIPT", "confidenceBoost": 0.05 },
+            { "pattern": "*.java", "skill": "JAVA", "confidenceBoost": 0.05 },
+            { "pattern": "*.go", "skill": "GO", "confidenceBoost": 0.05 },
+            { "pattern": "*.rs", "skill": "RUST", "confidenceBoost": 0.05 },
+            { "pattern": "*.sql", "skill": "SQL", "confidenceBoost": 0.05 },
+            { "pattern": "*.cpp", "skill": "CPP", "confidenceBoost": 0.05 },
+            { "pattern": "*.c", "skill": "CPP", "confidenceBoost": 0.05 }
+          ]
+        },
+        {
+          "rule": "COMMIT_MESSAGE_KEYWORDS",
+          "description": { "zh": "从提交信息提取能力关键词", "en": "Extract capability keywords from commit messages" },
+          "keywords": [
+            { "pattern": "(?i)(refactor|optimize|performance)", "skill": "SYSTEM_DESIGN", "confidenceBoost": 0.1 },
+            { "pattern": "(?i)(security|auth|encrypt|vuln)", "skill": "SECURITY", "confidenceBoost": 0.1 },
+            { "pattern": "(?i)(ml|model|train|predict|feature.?engineer)", "skill": "ML_AI", "confidenceBoost": 0.1 },
+            { "pattern": "(?i)(docker|k8s|deploy|ci.?cd|pipeline)", "skill": "DEVOPS", "confidenceBoost": 0.1 },
+            { "pattern": "(?i)(test|spec|coverage)", "skill": "QUALITY_ASSURANCE", "confidenceBoost": 0.05 },
+            { "pattern": "(?i)(doc|readme|guide)", "skill": "DOCUMENTATION", "confidenceBoost": 0.05 }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MEETING_LOG",
+      "name": { "zh": "会议记录", "en": "Meeting Log" },
+      "confidenceWeight": 0.5,
+      "dataSchema": {
+        "source": "meeting_system",
+        "fields": {
+          "meetingId": "string",
+          "title": "string",
+          "organizer": "string — employee_id",
+          "attendees": "string[] — employee_ids",
+          "durationMinutes": "number",
+          "transcript": "string — 可选，完整会议转录",
+          "summary": "string — AI生成的摘要",
+          "actionItems": "object[] — { assignee, description, dueDate }",
+          "tags": "string[]"
+        }
+      },
+      "inferenceRules": [
+        {
+          "rule": "ORGANIZER_ROLE_INFERENCE",
+          "description": { "zh": "会议组织者推断为具有协调/领导能力", "en": "Meeting organizer inferred to have coordination/leadership skills" },
+          "mappings": [
+            { "role": "organizer", "skill": "STAKEHOLDER_MGMT", "confidenceBoost": 0.08 },
+            { "role": "organizer", "skill": "DECISION_MAKING", "confidenceBoost": 0.05 }
+          ]
+        },
+        {
+          "rule": "MEETING_TOPIC_KEYWORDS",
+          "description": { "zh": "从会议主题和摘要提取领域专长", "en": "Extract domain expertise from meeting topics and summaries" },
+          "keywords": [
+            { "pattern": "(?i)(架构|architecture|design.?review)", "skill": "SYSTEM_DESIGN", "confidenceBoost": 0.1 },
+            { "pattern": "(?i)(需求|requirement|prd|产品)", "skill": "PRODUCT_THINKING", "confidenceBoost": 0.1 },
+            { "pattern": "(?i)(绩效|performance|okr|kpi|考核)", "skill": "PERFORMANCE_MGMT", "confidenceBoost": 0.1 },
+            { "pattern": "(?i)(安全|security|合规|compliance)", "skill": "SECURITY", "confidenceBoost": 0.1 },
+            { "pattern": "(?i)(招聘|hiring|interview|面试)", "skill": "TEAM_BUILDING", "confidenceBoost": 0.08 }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CODE_REVIEW",
+      "name": { "zh": "代码评审", "en": "Code Review" },
+      "confidenceWeight": 0.8,
+      "dataSchema": {
+        "source": "git_platform",
+        "fields": {
+          "reviewerId": "string",
+          "prId": "string",
+          "repository": "string",
+          "commentsCount": "number",
+          "approvalsCount": "number",
+          "changeRequestsCount": "number",
+          "reviewTurnaroundHours": "number"
+        }
+      },
+      "inferenceRules": [
+        {
+          "rule": "REVIEW_ACTIVITY_INFERENCE",
+          "description": { "zh": "评审活跃度推断技术深度", "en": "Review activity infers technical depth" },
+          "mappings": [
+            { "condition": "commentsCount > 10", "skill": "QUALITY_ASSURANCE", "confidenceBoost": 0.15 },
+            { "condition": "changeRequestsCount > 0", "skill": "SYSTEM_DESIGN", "confidenceBoost": 0.1 }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "OCR_DOCUMENT",
+      "name": { "zh": "OCR证件解析", "en": "OCR Document Parsing" },
+      "confidenceWeight": 0.95,
+      "dataSchema": {
+        "source": "ocr_pipeline",
+        "documentTypes": [
+          {
+            "type": "ID_CARD",
+            "name": { "zh": "居民身份证", "en": "Resident ID Card" },
+            "fields": ["name", "gender", "ethnicity", "dateOfBirth", "address", "idNumber", "issuingAuthority", "validityPeriod"],
+            "validationRules": [
+              { "field": "idNumber", "pattern": "^[1-9]\\d{5}(19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])\\d{3}[\\dXx]$", "description": "18位身份证号格式校验" }
+            ]
+          },
+          {
+            "type": "EDUCATION_CERTIFICATE",
+            "name": { "zh": "学历证书", "en": "Education Certificate" },
+            "fields": ["name", "institution", "degree", "major", "graduationDate", "certificateNumber"],
+            "validationRules": [
+              { "field": "institution", "lookupDataset": "foundation/higher-education/institutions.json", "description": "高校名称与标准库校验" }
+            ]
+          },
+          {
+            "type": "SEPARATION_CERTIFICATE",
+            "name": { "zh": "离职证明", "en": "Separation Certificate" },
+            "fields": ["name", "idNumber", "companyName", "position", "hireDate", "separationDate", "separationType"],
+            "validationRules": [
+              { "field": "separationType", "lookupDataset": "offboarding/taxonomy.json#/terminationTypes", "description": "离职类型与标准分类映射" }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+
+  "capabilityVectorSchema": {
+    "description": {
+      "zh": "员工能力向量标准格式，用于AI Agent进行人才匹配和组织能力分析",
+      "en": "Standard employee capability vector format for AI Agent talent matching and organizational capability analysis"
+    },
+    "schema": {
+      "employeeId": "string — 员工唯一标识",
+      "snapshotDate": "ISO-8601 date — 快照日期",
+      "vector": {
+        "type": "object",
+        "properties": {
+          "TECHNICAL": { "type": "number", "minimum": 0, "maximum": 1, "description": "技术能力综合得分" },
+          "LEADERSHIP": { "type": "number", "minimum": 0, "maximum": 1, "description": "领导力综合得分" },
+          "COMMUNICATION": { "type": "number", "minimum": 0, "maximum": 1, "description": "沟通协作综合得分" },
+          "DOMAIN_EXPERTISE": { "type": "number", "minimum": 0, "maximum": 1, "description": "业务领域专长综合得分" }
+        }
+      },
+      "skillScores": [
+        {
+          "skillCode": "string — 如 PYTHON",
+          "score": "number 0-1",
+          "confidence": "number 0-1 — 基于证据数量和时效",
+          "evidenceCount": "number",
+          "lastEvidenceDate": "ISO-8601 date",
+          "trend": "IMPROVING | STABLE | DECLINING"
+        }
+      ],
+      "evidenceTrail": [
+        {
+          "evidenceType": "string — 如 GIT_COMMIT",
+          "evidenceId": "string",
+          "timestamp": "ISO-8601 datetime",
+          "skillsImpacted": ["PYTHON", "SYSTEM_DESIGN"],
+          "confidenceDelta": "number"
+        }
+      ]
+    }
+  },
+
+  "agentBehaviorSpec": {
+    "description": {
+      "zh": "AI Agent行为数据结构规范，定义Agent如何采集、推理和输出能力评估",
+      "en": "AI Agent behavioral data structure specification, defining how agents collect, reason about, and output capability assessments"
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "stage": "INGEST",
+          "name": { "zh": "数据采集", "en": "Evidence Ingestion" },
+          "description": { "zh": "从各数据源采集原始行为数据", "en": "Collect raw behavioral data from all sources" },
+          "inputs": ["git_commits", "meeting_logs", "code_reviews", "ocr_documents", "training_records", "performance_reviews"],
+          "outputFormat": "RawEvidence[]"
+        },
+        {
+          "stage": "EXTRACT",
+          "name": { "zh": "特征提取", "en": "Feature Extraction" },
+          "description": { "zh": "应用推理规则，从原始数据中提取技能信号", "en": "Apply inference rules to extract skill signals from raw data" },
+          "inputFormat": "RawEvidence[]",
+          "outputFormat": "SkillSignal[]"
+        },
+        {
+          "stage": "AGGREGATE",
+          "name": { "zh": "信号聚合", "en": "Signal Aggregation" },
+          "description": { "zh": "聚合多源信号，计算置信度加权得分", "en": "Aggregate multi-source signals with confidence-weighted scoring" },
+          "inputFormat": "SkillSignal[]",
+          "outputFormat": "CapabilityVector"
+        },
+        {
+          "stage": "OUTPUT",
+          "name": { "zh": "结果输出", "en": "Result Output" },
+          "description": { "zh": "生成标准化能力向量，供下游系统消费", "en": "Generate standardized capability vectors for downstream consumption" },
+          "inputFormat": "CapabilityVector",
+          "outputFormat": "EmployeeCapabilitySnapshot"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hr-agent.dev/schemas/_meta/common.schema.json",
+  "title": "HR-Agent-DataGraph Common Definitions",
+  "description": "共享类型定义：双语字符串、日期格式、行政区划编码、元数据块等。所有领域Schema均引用本文件。",
+  "$defs": {
+    "BilingualString": {
+      "type": "object",
+      "properties": {
+        "zh": { "type": "string", "description": "中文名称" },
+        "en": { "type": "string", "description": "English name" }
+      },
+      "required": ["zh", "en"],
+      "additionalProperties": false
+    },
+    "OptionalBilingualString": {
+      "type": "object",
+      "properties": {
+        "zh": { "type": "string" },
+        "en": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "ISODate": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "ISO 8601 日期格式，如 2026-05-24"
+    },
+    "ISODatetime": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}",
+      "description": "ISO 8601 日期时间格式"
+    },
+    "AdminDivisionCode": {
+      "type": "string",
+      "pattern": "^\\d{2,6}$",
+      "description": "行政区划代码，2位省级、4位地级、6位县级（GB/T 2260）"
+    },
+    "EmployeeId": {
+      "type": "string",
+      "minLength": 1,
+      "description": "员工唯一标识符"
+    },
+    "UpperCaseCode": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]*$",
+      "description": "标准编码格式：大写字母开头，仅含大写字母、数字和下划线"
+    },
+    "Metadata": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "description": "语义化版本号"
+        },
+        "lastUpdated": { "$ref": "#/$defs/ISODate" },
+        "description": { "$ref": "#/$defs/BilingualString" },
+        "source": {
+          "type": "string",
+          "description": "数据来源说明"
+        },
+        "deprecated": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "required": ["version", "lastUpdated"],
+      "additionalProperties": true
+    },
+    "ConfidenceScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "置信度得分，0-1之间"
+    }
+  }
+}

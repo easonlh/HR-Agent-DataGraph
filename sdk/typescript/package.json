@@ -1,0 +1,49 @@
+{
+  "name": "@hr-agent/datagraph",
+  "version": "0.1.0",
+  "description": "Chinese HRIS Standard Reference Dictionary & Metadata Engine",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "data"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "hris",
+    "ehr",
+    "human-resources",
+    "china",
+    "metadata",
+    "taxonomy",
+    "ai-agent"
+  ],
+  "author": "HR-Agent-DataGraph Contributors",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hr-agent/datagraph.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0",
+    "@types/node": "^20.0.0"
+  }
+}

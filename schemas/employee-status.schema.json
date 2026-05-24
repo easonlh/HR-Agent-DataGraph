@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hr-agent.dev/schemas/employee-status.schema.json",
+  "title": "Employee Status Schema",
+  "description": "员工状态与用工类型JSON Schema验证",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "metadata": { "$ref": "_meta/common.schema.json#/$defs/Metadata" },
+    "statuses": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Status" }
+    },
+    "validTransitions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Transition" }
+    },
+    "employmentTypes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/EmploymentType" }
+    },
+    "transferTypes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/TransferType" }
+    }
+  },
+  "required": ["metadata"],
+  "$defs": {
+    "Status": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "category": { "type": "string", "enum": ["PRE_ACTIVE", "ACTIVE", "INACTIVE", "TRANSITION", "TERMINAL"] },
+        "isActive": { "type": "boolean" }
+      },
+      "required": ["code", "name", "category", "isActive"]
+    },
+    "Transition": {
+      "type": "object",
+      "properties": {
+        "from": { "type": "string" },
+        "to": { "type": "string" },
+        "trigger": { "type": "string" }
+      },
+      "required": ["from", "to", "trigger"]
+    },
+    "EmploymentType": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "laborContractType": { "type": "string" },
+        "socialInsuranceRequired": { "type": "boolean" },
+        "description": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "legalReference": { "type": "string" }
+      },
+      "required": ["code", "name"]
+    },
+    "TransferType": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+        "category": { "type": "string" },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": { "type": "string" },
+              "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" }
+            },
+            "required": ["code", "name"]
+          }
+        }
+      },
+      "required": ["code", "name", "category"]
+    }
+  }
+}

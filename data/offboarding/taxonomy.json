@@ -1,0 +1,409 @@
+{
+  "$schema": "../../schemas/offboarding-taxonomy.schema.json",
+  "metadata": {
+    "version": "0.1.0",
+    "lastUpdated": "2026-05-24",
+    "legalBasis": [
+      "《中华人民共和国劳动合同法》(2012修正)",
+      "《中华人民共和国劳动合同法实施条例》",
+      "《中华人民共和国劳动法》"
+    ],
+    "description": {
+      "zh": "离职类型与原因标准分类体系，覆盖主动离职、被动离职、协商解除等全部场景",
+      "en": "Offboarding type and reason taxonomy covering voluntary, involuntary, and mutual separation scenarios"
+    }
+  },
+
+  "terminationTypes": [
+    {
+      "code": "VOLUNTARY",
+      "name": { "zh": "主动离职", "en": "Voluntary Resignation" },
+      "description": { "zh": "员工主动提出解除劳动合同", "en": "Employee-initiated contract termination" },
+      "legalReference": "劳动合同法 第36条、第37条",
+      "subtypes": [
+        {
+          "code": "RESIGNATION_NORMAL",
+          "name": { "zh": "个人原因辞职", "en": "Resignation for Personal Reasons" },
+          "noticePeriodDays": 30,
+          "requiresApproval": false,
+          "severanceApplicable": false,
+          "reasons": [
+            {
+              "code": "CAREER_DEVELOPMENT",
+              "name": { "zh": "个人职业发展", "en": "Career Development" },
+              "category": "CAREER",
+              "exitInterviewRecommended": true
+            },
+            {
+              "code": "FAMILY_RELOCATION",
+              "name": { "zh": "家庭搬迁/照顾家人", "en": "Family Relocation / Caregiving" },
+              "category": "PERSONAL",
+              "exitInterviewRecommended": true
+            },
+            {
+              "code": "HEALTH_ISSUE",
+              "name": { "zh": "健康原因", "en": "Health Reasons" },
+              "category": "PERSONAL",
+              "medicalCertificateRequired": true,
+              "exitInterviewRecommended": true
+            },
+            {
+              "code": "COMPENSATION_DISSATISFACTION",
+              "name": { "zh": "薪酬不满", "en": "Compensation Dissatisfaction" },
+              "category": "COMPENSATION",
+              "exitInterviewRecommended": true,
+              "retentionRiskFlag": true
+            },
+            {
+              "code": "MANAGEMENT_CONFLICT",
+              "name": { "zh": "管理冲突", "en": "Management Conflict" },
+              "category": "MANAGEMENT",
+              "exitInterviewRecommended": true,
+              "retentionRiskFlag": true,
+              "managementReviewRequired": true
+            },
+            {
+              "code": "WORK_LIFE_BALANCE",
+              "name": { "zh": "工作生活平衡", "en": "Work-Life Balance" },
+              "category": "CULTURE",
+              "exitInterviewRecommended": true,
+              "retentionRiskFlag": true
+            },
+            {
+              "code": "RELOCATION_CITY",
+              "name": { "zh": "城市迁移", "en": "City Relocation" },
+              "category": "PERSONAL",
+              "exitInterviewRecommended": true
+            },
+            {
+              "code": "FURTHER_EDUCATION",
+              "name": { "zh": "继续深造", "en": "Further Education" },
+              "category": "CAREER",
+              "exitInterviewRecommended": true
+            },
+            {
+              "code": "OTHER_VOLUNTARY",
+              "name": { "zh": "其他个人原因", "en": "Other Personal Reasons" },
+              "category": "OTHER",
+              "exitInterviewRecommended": true
+            }
+          ]
+        },
+        {
+          "code": "RESIGNATION_PROBATION",
+          "name": { "zh": "试用期辞职", "en": "Probation Period Resignation" },
+          "noticePeriodDays": 3,
+          "requiresApproval": false,
+          "severanceApplicable": false,
+          "legalReference": "劳动合同法 第37条",
+          "reasons": [
+            {
+              "code": "EXPECTATION_MISMATCH",
+              "name": { "zh": "岗位预期不符", "en": "Role Expectation Mismatch" },
+              "category": "CAREER"
+            },
+            {
+              "code": "CULTURE_MISFIT",
+              "name": { "zh": "文化不适应", "en": "Culture Misfit" },
+              "category": "CULTURE"
+            },
+            {
+              "code": "OTHER_PROBATION",
+              "name": { "zh": "其他试用期原因", "en": "Other Probation Reasons" },
+              "category": "OTHER"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "INVOLUNTARY",
+      "name": { "zh": "被动离职/辞退", "en": "Involuntary Termination" },
+      "description": { "zh": "用人单位主动解除劳动合同", "en": "Employer-initiated contract termination" },
+      "legalReference": "劳动合同法 第39条、第40条、第41条",
+      "subtypes": [
+        {
+          "code": "TERMINATION_WITH_CAUSE",
+          "name": { "zh": "过失性辞退", "en": "Termination with Cause (Employee Fault)" },
+          "noticePeriodDays": 0,
+          "requiresApproval": true,
+          "severanceApplicable": false,
+          "legalReference": "劳动合同法 第39条",
+          "approvalChain": ["direct_manager", "hr_bp", "legal_counsel"],
+          "reasons": [
+            {
+              "code": "PROBATION_FAILURE",
+              "name": { "zh": "试用期不符合录用条件", "en": "Probation Failure" },
+              "category": "PERFORMANCE",
+              "documentationRequired": ["performance_review", "coaching_record"],
+              "legalReference": "劳动合同法 第39条第1项"
+            },
+            {
+              "code": "SERIOUS_VIOLATION",
+              "name": { "zh": "严重违反规章制度", "en": "Serious Rule Violation" },
+              "category": "CONDUCT",
+              "documentationRequired": ["disciplinary_record", "witness_statement", "rule_acknowledgment"],
+              "legalReference": "劳动合同法 第39条第2项"
+            },
+            {
+              "code": "SERIOUS_DAMAGE",
+              "name": { "zh": "严重失职，营私舞弊", "en": "Gross Negligence / Malfeasance" },
+              "category": "CONDUCT",
+              "documentationRequired": ["investigation_report", "damage_assessment"],
+              "legalReference": "劳动合同法 第39条第3项"
+            },
+            {
+              "code": "CRIMINAL LIABILITY",
+              "name": { "zh": "被依法追究刑事责任", "en": "Criminal Liability" },
+              "category": "LEGAL",
+              "documentationRequired": ["court_judgment"],
+              "legalReference": "劳动合同法 第39条第6项"
+            },
+            {
+              "code": "FRAUD_EMPLOYMENT",
+              "name": { "zh": "以欺诈手段订立劳动合同", "en": "Employment Fraud" },
+              "category": "LEGAL",
+              "documentationRequired": ["fraud_evidence"],
+              "legalReference": "劳动合同法 第39条第5项"
+            },
+            {
+              "code": "MOONLIGHTING_CONFLICT",
+              "name": { "zh": "兼职严重影响本职工作", "en": "Moonlighting Conflict" },
+              "category": "CONDUCT",
+              "documentationRequired": ["evidence_of_impact", "warning_record"],
+              "legalReference": "劳动合同法 第39条第4项"
+            }
+          ]
+        },
+        {
+          "code": "TERMINATION_WITHOUT_CAUSE",
+          "name": { "zh": "非过失性辞退", "en": "Termination without Cause (No-Fault)" },
+          "noticePeriodDays": 30,
+          "noticeInLieuPay": true,
+          "requiresApproval": true,
+          "severanceApplicable": true,
+          "severanceFormula": "N",
+          "legalReference": "劳动合同法 第40条",
+          "approvalChain": ["direct_manager", "hr_bp", "hr_director", "legal_counsel", "gm"],
+          "reasons": [
+            {
+              "code": "MEDICAL_TERMINAL",
+              "name": { "zh": "医疗期满不能从事原工作", "en": "Unable to Work After Medical Period" },
+              "category": "MEDICAL",
+              "documentationRequired": ["medical_assessment", "job_reassignment_attempt"],
+              "legalReference": "劳动合同法 第40条第1项"
+            },
+            {
+              "code": "INCOMPETENCE",
+              "name": { "zh": "不能胜任工作，经培训或调岗仍不能胜任", "en": "Incompetence After Training/Transfer" },
+              "category": "PERFORMANCE",
+              "documentationRequired": ["performance_review", "pip_record", "training_record", "reassessment"],
+              "legalReference": "劳动合同法 第40条第2项"
+            },
+            {
+              "code": "MAJOR_CHANGE",
+              "name": { "zh": "客观情况发生重大变化", "en": "Material Change in Circumstances" },
+              "category": "BUSINESS",
+              "documentationRequired": ["change_evidence", "negotiation_record"],
+              "legalReference": "劳动合同法 第40条第3项"
+            }
+          ]
+        },
+        {
+          "code": "LAYOFF",
+          "name": { "zh": "经济性裁员", "en": "Economic Layoff" },
+          "noticePeriodDays": 30,
+          "requiresApproval": true,
+          "severanceApplicable": true,
+          "severanceFormula": "N",
+          "legalReference": "劳动合同法 第41条",
+          "governmentNotificationRequired": true,
+          "approvalChain": ["hr_director", "legal_counsel", "cfo", "ceo", "board"],
+          "reasons": [
+            {
+              "code": "BANKRUPTCY_RESTRUCTURING",
+              "name": { "zh": "依照企业破产法进行重整", "en": "Bankruptcy Reorganization" },
+              "category": "BUSINESS",
+              "legalReference": "劳动合同法 第41条第1项"
+            },
+            {
+              "code": "PRODUCTION_DIFFICULTY",
+              "name": { "zh": "生产经营发生严重困难", "en": "Severe Business Difficulty" },
+              "category": "BUSINESS",
+              "legalReference": "劳动合同法 第41条第2项"
+            },
+            {
+              "code": "TECHNOLOGICAL_CHANGE",
+              "name": { "zh": "技术革新/重大技术变革", "en": "Technological Transformation" },
+              "category": "BUSINESS",
+              "legalReference": "劳动合同法 第41条第3项"
+            },
+            {
+              "code": "ECONOMIC_DOWNTURN",
+              "name": { "zh": "经济环境重大变化", "en": "Economic Downturn" },
+              "category": "BUSINESS",
+              "legalReference": "劳动合同法 第41条第4项"
+            }
+          ],
+          "protectedGroups": [
+            {
+              "code": "LONG_TERM_CONTRACT",
+              "description": { "zh": "订立较长期限固定期限合同的", "en": "Employees with long-term fixed contracts" }
+            },
+            {
+              "code": "NO_ALTERNATIVE",
+              "description": { "zh": "家庭无其他就业人员", "en": "Sole breadwinner in family" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MUTUAL_AGREEMENT",
+      "name": { "zh": "协商解除", "en": "Mutual Agreement Termination" },
+      "description": { "zh": "用人单位与劳动者协商一致解除劳动合同", "en": "Employer and employee mutually agree to terminate" },
+      "legalReference": "劳动合同法 第36条",
+      "requiresApproval": true,
+      "writtenAgreementRequired": true,
+      "severanceApplicable": true,
+      "severanceFormula": "NEGOTIABLE",
+      "severanceMinimum": "N",
+      "approvalChain": ["direct_manager", "hr_bp", "hr_director"],
+      "reasons": [
+        {
+          "code": "REORGANIZATION",
+          "name": { "zh": "组织架构调整", "en": "Organizational Restructuring" },
+          "category": "BUSINESS"
+        },
+        {
+          "code": "POSITION_ELIMINATION",
+          "name": { "zh": "岗位撤销", "en": "Position Elimination" },
+          "category": "BUSINESS"
+        },
+        {
+          "code": "PERFORMANCE_SETTLEMENT",
+          "name": { "zh": "绩效协商", "en": "Performance-Based Settlement" },
+          "category": "PERFORMANCE"
+        },
+        {
+          "code": "RELATIONSHIP_BREAKDOWN",
+          "name": { "zh": "劳动关系恶化", "en": "Relationship Breakdown" },
+          "category": "MANAGEMENT"
+        },
+        {
+          "code": "OTHER_MUTUAL",
+          "name": { "zh": "其他协商原因", "en": "Other Mutual Reasons" },
+          "category": "OTHER"
+        }
+      ]
+    },
+    {
+      "code": "CONTRACT_EXPIRY",
+      "name": { "zh": "合同到期终止", "en": "Contract Expiration" },
+      "description": { "zh": "劳动合同期限届满", "en": "Fixed-term contract reaches expiration date" },
+      "legalReference": "劳动合同法 第44条第1项",
+      "severanceApplicable": true,
+      "severanceFormula": "N",
+      "exceptions": [
+        {
+          "condition": "employer_offers_renewal_employee_refuses",
+          "severanceApplicable": false,
+          "description": {
+            "zh": "用人单位维持或提高条件续订，劳动者不同意",
+            "en": "Employer offers same or better terms, employee declines"
+          },
+          "legalReference": "劳动合同法 第46条第5项"
+        }
+      ],
+      "reasons": [
+        {
+          "code": "CONTRACT_NATURAL_END",
+          "name": { "zh": "合同自然到期", "en": "Natural Contract End" },
+          "category": "CONTRACT"
+        },
+        {
+          "code": "EMPLOYEE_DECLINES_RENEWAL",
+          "name": { "zh": "员工不愿续签", "en": "Employee Declines Renewal" },
+          "category": "CONTRACT"
+        },
+        {
+          "code": "EMPLOYER_DECLINES_RENEWAL",
+          "name": { "zh": "企业不续签", "en": "Employer Declines Renewal" },
+          "category": "CONTRACT"
+        }
+      ]
+    },
+    {
+      "code": "RETIREMENT",
+      "name": { "zh": "退休", "en": "Retirement" },
+      "description": { "zh": "达到法定退休年龄或符合提前退休条件", "en": "Reaching statutory retirement age or qualifying for early retirement" },
+      "subtypes": [
+        {
+          "code": "NORMAL_RETIREMENT",
+          "name": { "zh": "法定退休", "en": "Statutory Retirement" },
+          "retirementAges": {
+            "male": 63,
+            "femaleCadre": 58,
+            "femaleWorker": 55
+          },
+          "note": {
+            "zh": "根据2025年渐进式延迟退休政策调整",
+            "en": "Adjusted per 2025 gradual retirement age extension policy"
+          },
+          "legalReference": "《关于实施渐进式延迟法定退休年龄的办法》(2025)"
+        },
+        {
+          "code": "EARLY_RETIREMENT",
+          "name": { "zh": "提前退休", "en": "Early Retirement" },
+          "conditions": ["special_occupation", "disability", "government_approval"],
+          "legalReference": "国务院关于工人退休、退职的暂行办法"
+        }
+      ]
+    },
+    {
+      "code": "DEATH",
+      "name": { "zh": "死亡/因工死亡", "en": "Death / Work-Related Death" },
+      "description": { "zh": "员工在职期间死亡", "en": "Employee death during employment" },
+      "subtypes": [
+        {
+          "code": "NATURAL_DEATH",
+          "name": { "zh": "非因工死亡", "en": "Non-Work-Related Death" },
+          "category": "NATURAL"
+        },
+        {
+          "code": "WORK_RELATED_DEATH",
+          "name": { "zh": "因工死亡", "en": "Work-Related Death" },
+          "category": "OCCUPATIONAL",
+          "legalReference": "《工伤保险条例》"
+        }
+      ]
+    }
+  ],
+
+  "exitProcedure": {
+    "standardSteps": [
+      { "step": 1, "code": "SUBMIT_RESIGNATION", "name": { "zh": "提交离职申请", "en": "Submit Resignation" }, "responsibleParty": "employee" },
+      { "step": 2, "code": "MANAGER_REVIEW", "name": { "zh": "直属上级审批", "en": "Manager Approval" }, "responsibleParty": "manager" },
+      { "step": 3, "code": "HR_REVIEW", "name": { "zh": "HR审核", "en": "HR Review" }, "responsibleParty": "hr" },
+      { "step": 4, "code": "KNOWLEDGE_TRANSFER", "name": { "zh": "工作交接", "en": "Knowledge Transfer" }, "responsibleParty": "employee" },
+      { "step": 5, "code": "ASSET_RETURN", "name": { "zh": "资产归还", "en": "Asset Return" }, "responsibleParty": "employee" },
+      { "step": 6, "code": "ACCESS_REVOCATION", "name": { "zh": "权限回收", "en": "Access Revocation" }, "responsibleParty": "it" },
+      { "step": 7, "code": "SETTLEMENT", "name": { "zh": "薪资结算", "en": "Salary Settlement" }, "responsibleParty": "finance" },
+      { "step": 8, "code": "SOCIAL_INSURANCE_TRANSFER", "name": { "zh": "社保公积金转移", "en": "Social Insurance Transfer" }, "responsibleParty": "hr" },
+      { "step": 9, "code": "SEPARATION_CERTIFICATE", "name": { "zh": "开具离职证明", "en": "Issue Separation Certificate" }, "responsibleParty": "hr" },
+      { "step": 10, "code": "ARCHIVE", "name": { "zh": "档案归档", "en": "Archive Personnel File" }, "responsibleParty": "hr" }
+    ],
+    "legalDeadlineDays": 15,
+    "legalDeadlineReference": "劳动合同法 第50条"
+  },
+
+  "blacklist": {
+    "enabled": true,
+    "reasons": [
+      { "code": "SERIOUS_VIOLATION", "name": { "zh": "严重违纪", "en": "Serious Disciplinary Violation" } },
+      { "code": "FRAUD", "name": { "zh": "欺诈行为", "en": "Fraudulent Conduct" } },
+      { "code": "NDA_BREACH", "name": { "zh": "违反竞业限制", "en": "Non-Compete Breach" } }
+    ],
+    "retentionPeriodYears": 3
+  }
+}
