@@ -3,7 +3,7 @@
 > **Chinese HRIS Standard Reference Dictionary & Metadata Engine**
 > **中国HRIS标准参考字典与元数据引擎**
 
-[![CI](https://github.com/hr-agent/datagraph/actions/workflows/ci.yml/badge.svg)](https://github.com/hr-agent/datagraph/actions/workflows/ci.yml)
+[![CI](https://github.com/easonlh/HR-Agent-DataGraph/actions/workflows/ci.yml/badge.svg)](https://github.com/easonlh/HR-Agent-DataGraph/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/pypi/v/hr-agent-datagraph)](https://pypi.org/project/hr-agent-datagraph/)
 [![TypeScript](https://img.shields.io/npm/v/@hr-agent/datagraph)](https://www.npmjs.com/package/@hr-agent/datagraph)
@@ -12,11 +12,18 @@
 
 ## What Is This?
 
-HR-Agent-DataGraph provides **standardized taxonomies, schemas, and lookup datasets** for Chinese HRIS/eHR development. It is designed for:
+HR-Agent-DataGraph 是一个面向 **HR AI Agent 开发者** 的学习与参考项目。它提供了中国人力资源领域的标准化数据字典和元数据框架，帮助 AI Agent 理解和处理 HR 业务逻辑。
 
-- **Enterprise HR software integration** — standard codes for employee status, offboarding reasons, compensation components, administrative divisions, and higher education institutions.
-- **HR AI Agent automation** — structured skill graphs, capability evidence schemas, and document parsing specs that enable AI agents to reason about employee capabilities.
-- **Compliance & audit** — offboarding taxonomies grounded in Chinese Labor Contract Law (《劳动合同法》), with article-level legal references.
+如果你正在构建 HR 相关的 AI Agent —— 比如自动入职审核、智能离职分析、人才盘点、薪酬合规助手 —— 这个项目就是你需要的"领域知识库"。
+
+### 适用场景
+
+- **HR AI Agent 领域学习** — 理解中国 HR 业务的标准化数据结构，让 Agent 具备领域知识
+- **企业 HR 软件集成** — 员工状态、离职原因、薪酬组件、行政区划、高校信息等标准编码
+- **Agent 能力图谱** — 技能分类、行为证据（Git提交、会议记录、代码评审）到能力向量的映射
+- **合规与审计** — 基于《劳动合同法》第36-50条的离职分类体系，逐条引用法律依据
+
+> **这是一个开放的学习型项目，欢迎所有对 HR AI Agent 感兴趣的开发者一起参与建设！**
 
 ## Quick Start
 
@@ -115,7 +122,17 @@ HR-Agent-DataGraph/
 
 ## Contributing
 
-We welcome contributions — new data domains, corrections to existing taxonomies, additional institution data, and SDK improvements. See [CONTRIBUTING.md](docs/contributing.md) for guidelines.
+**PR 非常欢迎！** 无论你是 HR 领域专家还是 AI Agent 开发者，都可以参与贡献：
+
+- **补充数据** — 添加更多高校、城市、行业分类等标准数据
+- **修正分类** — 完善离职原因、薪酬组件等分类体系
+- **扩展 SDK** — 增加查询函数、添加新语言的 SDK
+- **完善文档** — 改进领域指南、补充法律引用
+- **分享案例** — 如果你用这个项目构建了 HR Agent，欢迎分享你的实践
+
+> 即使是小的改进也非常有价值 — 修正一个错别字、补充一条法律引用、添加一个离职原因分类，都是有意义的贡献。
+
+See [CONTRIBUTING.md](docs/contributing.md) for guidelines.
 
 ## License
 
