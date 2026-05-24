@@ -11,6 +11,8 @@ export {
   findOffboardingReason,
   findSkillDimension,
   findStatusTransitions,
+  findGlossaryTerm,
+  searchGlossary,
 } from "./query.js";
 export { validate, type ValidationResult } from "./validation.js";
 export type {
@@ -33,5 +35,6 @@ export type {
   EmploymentType,
   CompensationComponent,
   TransferType,
+  GlossaryTerm,
   DataFile,
 } from "./types.js";

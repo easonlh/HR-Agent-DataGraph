@@ -5,6 +5,8 @@ import {
   findOffboardingReason,
   findSkillDimension,
   findStatusTransitions,
+  findGlossaryTerm,
+  searchGlossary,
 } from "../src/query.js";
 
 describe("query", () => {
@@ -59,5 +61,23 @@ describe("query", () => {
     expect(transitions.length).toBeGreaterThan(0);
     const triggers = transitions.map((t) => t.trigger);
     expect(triggers).toContain("RESIGNATION_SUBMITTED");
+  });
+
+  it("finds glossary term", () => {
+    const result = findGlossaryTerm("CR值");
+    expect(result).toBeDefined();
+    expect(result!.definition).toContain("Compensation Ratio");
+  });
+
+  it("returns undefined for unknown glossary term", () => {
+    const result = findGlossaryTerm("不存在的术语");
+    expect(result).toBeUndefined();
+  });
+
+  it("searches glossary by keyword", () => {
+    const results = searchGlossary("司龄");
+    expect(results.length).toBeGreaterThan(0);
+    const terms = results.map((r) => r.term);
+    expect(terms).toContain("员工司龄");
   });
 });

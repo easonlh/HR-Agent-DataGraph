@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hr-agent.dev/schemas/hr-glossary.schema.json",
+  "title": "HR Glossary",
+  "description": "人力资源领域名词解释标准结构",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "metadata": { "$ref": "_meta/common.schema.json#/$defs/Metadata" },
+    "terms": {
+      "type": "array",
+      "description": "名词解释列表",
+      "items": {
+        "type": "object",
+        "properties": {
+          "term": {
+            "type": "string",
+            "description": "术语名称"
+          },
+          "definition": {
+            "type": "string",
+            "description": "术语定义或计算公式"
+          },
+          "roundingRule": {
+            "type": "string",
+            "description": "数值舍入规则"
+          },
+          "example": {
+            "type": "string",
+            "description": "示例说明"
+          },
+          "dataDefinition": {
+            "type": "string",
+            "description": "数据含义详细说明"
+          },
+          "dataRule": {
+            "type": "string",
+            "description": "数据计算规则"
+          },
+          "rehireRule": {
+            "type": "string",
+            "description": "重聘场景下的特殊规则"
+          }
+        },
+        "required": ["term"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["metadata", "terms"],
+  "additionalProperties": false
+}

@@ -148,6 +148,16 @@ export interface TransferType {
   reasons?: Array<{ code: string; name: BilingualString }>;
 }
 
+export interface GlossaryTerm {
+  term: string;
+  definition?: string;
+  roundingRule?: string;
+  example?: string;
+  dataDefinition?: string;
+  dataRule?: string;
+  rehireRule?: string;
+}
+
 /** Generic data file wrapper. */
 export type DataFile<T extends Record<string, unknown> = Record<string, unknown>> = {
   metadata: Metadata;

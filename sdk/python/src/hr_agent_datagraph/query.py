@@ -98,3 +98,36 @@ def find_status_transitions(status_code: str) -> list[dict[str, Any]]:
         t for t in data.get("validTransitions", [])
         if t["from"] == status_code
     ]
+
+
+def find_glossary_term(term: str) -> dict[str, Any] | None:
+    """Find a glossary term by name.
+
+    Args:
+        term: Term name (e.g. "CR值", "员工司龄")
+
+    Returns:
+        Glossary term dict, or None if not found.
+    """
+    data = load("core-hr/glossary")
+    for entry in data.get("terms", []):
+        if entry["term"] == term:
+            return entry
+    return None
+
+
+def search_glossary(keyword: str) -> list[dict[str, Any]]:
+    """Search glossary terms by keyword in term name or definition.
+
+    Args:
+        keyword: Search keyword
+
+    Returns:
+        List of matching glossary term dicts.
+    """
+    data = load("core-hr/glossary")
+    results = []
+    for entry in data.get("terms", []):
+        if keyword in entry.get("term", "") or keyword in entry.get("definition", ""):
+            results.append(entry)
+    return results

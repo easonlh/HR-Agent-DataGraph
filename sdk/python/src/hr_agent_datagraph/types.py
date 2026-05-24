@@ -141,5 +141,16 @@ class CompensationComponent(TypedDict, total=False):
     legalReference: str
 
 
+class GlossaryTerm(TypedDict, total=False):
+    """名词解释条目。"""
+    term: str
+    definition: str
+    roundingRule: str
+    example: str
+    dataDefinition: str
+    dataRule: str
+    rehireRule: str
+
+
 # Re-export Any for downstream use
 from typing import Any  # noqa: E402

@@ -72,3 +72,27 @@ def test_find_status_transitions():
     assert len(transitions) > 0
     triggers = [t["trigger"] for t in transitions]
     assert "RESIGNATION_SUBMITTED" in triggers
+
+
+def test_find_glossary_term():
+    from hr_agent_datagraph.query import find_glossary_term
+
+    result = find_glossary_term("CR值")
+    assert result is not None
+    assert "Compensation Ratio" in result["definition"]
+
+
+def test_find_glossary_term_not_found():
+    from hr_agent_datagraph.query import find_glossary_term
+
+    result = find_glossary_term("不存在的术语")
+    assert result is None
+
+
+def test_search_glossary():
+    from hr_agent_datagraph.query import search_glossary
+
+    results = search_glossary("司龄")
+    assert len(results) > 0
+    terms = [r["term"] for r in results]
+    assert "员工司龄" in terms

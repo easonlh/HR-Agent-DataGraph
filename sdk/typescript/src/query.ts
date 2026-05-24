@@ -9,6 +9,7 @@ import type {
   TerminationType,
   SkillDimension,
   StatusTransition,
+  GlossaryTerm,
 } from "./types.js";
 
 /**
@@ -89,4 +90,27 @@ export function findStatusTransitions(
     "core-hr/employee-status/status-mapping"
   );
   return data.validTransitions.filter((t: StatusTransition) => t.from === statusCode);
+}
+
+/**
+ * Find a glossary term by name.
+ */
+export function findGlossaryTerm(term: string): GlossaryTerm | undefined {
+  const data = load<{ terms: GlossaryTerm[] } & Record<string, unknown>>(
+    "core-hr/glossary"
+  );
+  return data.terms.find((t: GlossaryTerm) => t.term === term);
+}
+
+/**
+ * Search glossary terms by keyword in term name or definition.
+ */
+export function searchGlossary(keyword: string): GlossaryTerm[] {
+  const data = load<{ terms: GlossaryTerm[] } & Record<string, unknown>>(
+    "core-hr/glossary"
+  );
+  return data.terms.filter(
+    (t: GlossaryTerm) =>
+      (t.term?.includes(keyword)) || (t.definition?.includes(keyword))
+  );
 }
