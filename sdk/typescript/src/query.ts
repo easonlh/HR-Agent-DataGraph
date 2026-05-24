@@ -44,6 +44,20 @@ export function findInstitution(
 }
 
 /**
+ * Find institutions by category (e.g. "985/211", "QS200", "大专").
+ */
+export function findInstitutionsByCategory(
+  category: string
+): Institution[] {
+  const data = load<{ institutions: Institution[] } & Record<string, unknown>>(
+    "foundation/higher-education/institutions"
+  );
+  return data.institutions.filter(
+    (inst: Institution) => inst.category.zh === category
+  );
+}
+
+/**
  * Find an offboarding reason by code.
  */
 export function findOffboardingReason(

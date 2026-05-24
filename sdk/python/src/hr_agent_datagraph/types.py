@@ -36,14 +36,14 @@ class City(TypedDict):
     type: str
 
 
-class Institution(TypedDict):
+class Institution(TypedDict, total=False):
     """高校条目。"""
-    code: str
+    typeCode: str
+    category: BilingualString
     name: BilingualString
-    province: str
-    city: str
-    tier: list[str]
-    type: str
+    country: str
+    educationLevels: list[str]
+    enrollmentMethods: list[str]
 
 
 class DegreeType(TypedDict):

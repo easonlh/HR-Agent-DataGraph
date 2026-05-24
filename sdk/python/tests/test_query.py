@@ -31,7 +31,8 @@ def test_find_institution_exact():
 
     results = find_institution("清华大学")
     assert len(results) == 1
-    assert results[0]["code"] == "10003"
+    assert results[0]["typeCode"] == "848"
+    assert results[0]["category"]["zh"] == "985/211"
 
 
 def test_find_institution_fuzzy():
@@ -39,6 +40,22 @@ def test_find_institution_fuzzy():
 
     results = find_institution("大学", fuzzy=True)
     assert len(results) > 1
+
+
+def test_find_institutions_by_category():
+    from hr_agent_datagraph.query import find_institutions_by_category
+
+    results = find_institutions_by_category("985/211")
+    assert len(results) == 114
+    names = [r["name"]["zh"] for r in results]
+    assert "清华大学" in names
+
+
+def test_find_institutions_by_category_qs200():
+    from hr_agent_datagraph.query import find_institutions_by_category
+
+    results = find_institutions_by_category("QS200")
+    assert len(results) == 192
 
 
 def test_find_offboarding_reason():

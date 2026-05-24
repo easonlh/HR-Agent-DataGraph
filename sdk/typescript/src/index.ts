@@ -8,6 +8,7 @@ export { load, loadRaw, listDataFiles, clearCache } from "./loader.js";
 export {
   findProvince,
   findInstitution,
+  findInstitutionsByCategory,
   findOffboardingReason,
   findSkillDimension,
   findStatusTransitions,

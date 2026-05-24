@@ -28,12 +28,12 @@ export interface City {
 }
 
 export interface Institution {
-  code: string;
+  typeCode: string;
+  category: BilingualString;
   name: BilingualString;
-  province: string;
-  city?: string;
-  tier?: string[];
-  type?: string;
+  country?: string;
+  educationLevels?: string[];
+  enrollmentMethods?: string[];
 }
 
 export interface DegreeType {

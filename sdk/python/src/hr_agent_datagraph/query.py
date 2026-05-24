@@ -46,6 +46,22 @@ def find_institution(name: str, fuzzy: bool = False) -> list[dict[str, Any]]:
     return results
 
 
+def find_institutions_by_category(category: str) -> list[dict[str, Any]]:
+    """Find institutions by category (e.g. "985/211", "QS200", "大专").
+
+    Args:
+        category: Category Chinese name
+
+    Returns:
+        List of matching institution dicts.
+    """
+    data = load("foundation/higher-education/institutions")
+    return [
+        inst for inst in data.get("institutions", [])
+        if inst.get("category", {}).get("zh") == category
+    ]
+
+
 def find_offboarding_reason(reason_code: str) -> dict[str, Any] | None:
     """Find an offboarding reason by code across all termination types.
 

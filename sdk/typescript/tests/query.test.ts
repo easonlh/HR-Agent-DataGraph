@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   findProvince,
   findInstitution,
+  findInstitutionsByCategory,
   findOffboardingReason,
   findSkillDimension,
   findStatusTransitions,
@@ -31,12 +32,25 @@ describe("query", () => {
   it("finds institution exact", () => {
     const results = findInstitution("清华大学");
     expect(results).toHaveLength(1);
-    expect(results[0].code).toBe("10003");
+    expect(results[0].typeCode).toBe("848");
+    expect(results[0].category.zh).toBe("985/211");
   });
 
   it("finds institution fuzzy", () => {
     const results = findInstitution("大学", true);
     expect(results.length).toBeGreaterThan(1);
+  });
+
+  it("finds institutions by category", () => {
+    const results = findInstitutionsByCategory("985/211");
+    expect(results).toHaveLength(114);
+    const names = results.map((r) => r.name.zh);
+    expect(names).toContain("清华大学");
+  });
+
+  it("finds QS200 institutions", () => {
+    const results = findInstitutionsByCategory("QS200");
+    expect(results).toHaveLength(192);
   });
 
   it("finds offboarding reason", () => {
