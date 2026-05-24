@@ -41,9 +41,7 @@ def find_institution(name: str, fuzzy: bool = False) -> list[dict[str, Any]]:
     results = []
     for inst in data.get("institutions", []):
         zh_name = inst.get("name", {}).get("zh", "")
-        if fuzzy and name in zh_name:
-            results.append(inst)
-        elif zh_name == name:
+        if (fuzzy and name in zh_name) or zh_name == name:
             results.append(inst)
     return results
 
