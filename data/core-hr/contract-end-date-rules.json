@@ -1,0 +1,136 @@
+{
+  "$schema": "../../schemas/contract-end-date-rules.schema.json",
+  "metadata": {
+    "version": "0.1.0",
+    "lastUpdated": "2026-05-24",
+    "description": {
+      "zh": "合同结束日期计算规则，按签订类型、员工类别分类，包含新签、续签场景下的合同期限及结束日期计算逻辑",
+      "en": "Contract end date calculation rules by signing type and employee category, covering new signing and renewal scenarios"
+    },
+    "source": "企业HR系统规则整理"
+  },
+  "signingTypes": [
+    {
+      "code": "NEW_SIGNING",
+      "name": { "zh": "新签", "en": "New Signing" },
+      "rules": [
+        {
+          "employeeCategory": { "zh": "正式员工", "en": "Regular Employee" },
+          "contractType": { "zh": "劳动合同", "en": "Labor Contract" },
+          "rule": "新签劳动合同期限为3年，首次签署合同结束时间为3年后入职当月的最后一天",
+          "example": "2023/01/03入职，合同结束日期为2026/01/31",
+          "lastUpdated": "2023-11-30"
+        },
+        {
+          "employeeCategory": { "zh": "正式员工", "en": "Regular Employee" },
+          "contractType": { "zh": "劳动合同", "en": "Labor Contract" },
+          "rule": "新签劳动合同期限为3年，首次签署合同结束时间为3年整减一天",
+          "example": "2023/01/03入职，合同结束日期为2026/01/02",
+          "lastUpdated": "2023-11-30",
+          "note": { "zh": "适用于部分业务单元", "en": "Applies to certain business units" }
+        },
+        {
+          "employeeCategory": { "zh": "实习生", "en": "Intern" },
+          "contractType": { "zh": "劳务协议", "en": "Service Agreement" },
+          "rule": "合同结束日期为预计毕业时间",
+          "example": "",
+          "lastUpdated": "2023-11-30"
+        },
+        {
+          "employeeCategory": { "zh": "劳务派遣", "en": "Dispatched Worker" },
+          "contractType": { "zh": "劳动合同", "en": "Labor Contract" },
+          "rule": "新签劳动合同期限为2年整",
+          "example": "2023/01/03入职，合同结束日期为2025/01/02",
+          "lastUpdated": "2023-11-30"
+        },
+        {
+          "employeeCategory": { "zh": "退休返聘", "en": "Retiree Re-employment" },
+          "contractType": { "zh": "劳务协议", "en": "Service Agreement" },
+          "rule": "新签劳动合同期限为1年整",
+          "example": "2023/01/03入职，合同结束日期为2024/01/02",
+          "lastUpdated": "2023-11-30"
+        },
+        {
+          "employeeCategory": { "zh": "顾问", "en": "Consultant" },
+          "contractType": { "zh": "劳务协议", "en": "Service Agreement" },
+          "rule": "新签劳动合同期限为1年整",
+          "example": "2023/01/03入职，合同结束日期为2024/01/02",
+          "lastUpdated": "2023-11-30"
+        }
+      ]
+    },
+    {
+      "code": "FIRST_RENEWAL",
+      "name": { "zh": "第一次续签", "en": "First Renewal" },
+      "rules": [
+        {
+          "employeeCategory": { "zh": "正式员工", "en": "Regular Employee" },
+          "contractType": { "zh": "劳动合同", "en": "Labor Contract" },
+          "rule": "续签劳动合同期限为5年整",
+          "example": "2023/01/31第一次续签，合同开始日期为2023/01/31，合同结束日期为2028/01/30",
+          "lastUpdated": "2023-11-30"
+        },
+        {
+          "employeeCategory": { "zh": "劳务派遣", "en": "Dispatched Worker" },
+          "contractType": { "zh": "劳动合同", "en": "Labor Contract" },
+          "rule": "续签劳动合同期限为2年整",
+          "example": "2023/01/31第一次续签，合同开始日期为2023/01/31，合同结束日期为2025/01/30",
+          "lastUpdated": "2023-11-30"
+        },
+        {
+          "employeeCategory": { "zh": "退休返聘", "en": "Retiree Re-employment" },
+          "contractType": { "zh": "劳务协议", "en": "Service Agreement" },
+          "rule": "续签劳动合同期限为1年整",
+          "example": "2023/01/31第一次续签，合同开始日期为2023/01/31，合同结束日期为2024/01/30",
+          "lastUpdated": "2023-11-30"
+        },
+        {
+          "employeeCategory": { "zh": "顾问", "en": "Consultant" },
+          "contractType": { "zh": "劳务协议", "en": "Service Agreement" },
+          "rule": "续签劳动合同期限为1年整",
+          "example": "2023/01/31第一次续签，合同开始日期为2023/01/31，合同结束日期为2024/01/30",
+          "lastUpdated": "2023-11-30"
+        }
+      ]
+    },
+    {
+      "code": "SECOND_RENEWAL",
+      "name": { "zh": "第二次续签", "en": "Second Renewal" },
+      "rules": [
+        {
+          "employeeCategory": { "zh": "正式员工", "en": "Regular Employee" },
+          "contractType": { "zh": "劳动合同", "en": "Labor Contract" },
+          "rule": "第二次续签无固定期限（结束日期2099-12-31）",
+          "example": "2023/01/31第二次续签，合同开始日期为2023/01/31，合同结束日期为2099/12/31",
+          "lastUpdated": "2023-11-30"
+        },
+        {
+          "employeeCategory": { "zh": "劳务派遣", "en": "Dispatched Worker" },
+          "contractType": { "zh": "劳动合同", "en": "Labor Contract" },
+          "rule": "第二次续签无固定期限（结束日期2099-12-31）",
+          "example": "",
+          "lastUpdated": "2023-11-30"
+        },
+        {
+          "employeeCategory": { "zh": "退休返聘", "en": "Retiree Re-employment" },
+          "contractType": { "zh": "劳务协议", "en": "Service Agreement" },
+          "rule": "第二次续签及之后劳动合同期限为1年整",
+          "example": "2023/01/31第二次续签，合同开始日期为2023/01/31，合同结束日期为2024/01/30",
+          "lastUpdated": "2023-11-30"
+        },
+        {
+          "employeeCategory": { "zh": "顾问", "en": "Consultant" },
+          "contractType": { "zh": "劳务协议", "en": "Service Agreement" },
+          "rule": "第二次续签及之后劳动合同期限为1年整",
+          "example": "2023/01/31第二次续签，合同开始日期为2023/01/31，合同结束日期为2024/01/30",
+          "lastUpdated": "2023-11-30"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    { "zh": "正式员工第二次续签后为无固定期限合同，结束日期统一为2099-12-31", "en": "Regular employees on second renewal get open-ended contracts with end date 2099-12-31" },
+    { "zh": "退休返聘和顾问每次续签均为1年", "en": "Retiree re-employment and consultants renew for 1 year each time" },
+    { "zh": "劳务派遣首次2年，续签2年，第二次续签后无固定期限", "en": "Dispatched workers: 2 years first, 2 years renewal, open-ended after second renewal" }
+  ]
+}

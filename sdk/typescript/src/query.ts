@@ -114,3 +114,48 @@ export function searchGlossary(keyword: string): GlossaryTerm[] {
       (t.term?.includes(keyword)) || (t.definition?.includes(keyword))
   );
 }
+
+interface ContractRule {
+  employeeCategory: { zh: string; en: string };
+  contractType: { zh: string; en: string };
+  rule: string;
+  example?: string;
+  lastUpdated?: string;
+  note?: { zh: string; en: string };
+}
+
+interface SigningType {
+  code: string;
+  name: { zh: string; en: string };
+  rules: ContractRule[];
+}
+
+interface ContractRuleResult extends ContractRule {
+  signingType: string;
+  signingTypeName: { zh: string; en: string };
+}
+
+/**
+ * Find contract end date rules by signing type and/or employee category.
+ */
+export function findContractRules(
+  signingType?: string,
+  employeeCategory?: string
+): ContractRuleResult[] {
+  const data = load<{ signingTypes: SigningType[] } & Record<string, unknown>>(
+    "core-hr/contract-end-date-rules"
+  );
+  const results: ContractRuleResult[] = [];
+  for (const stype of data.signingTypes) {
+    if (signingType && stype.code !== signingType) continue;
+    for (const rule of stype.rules) {
+      if (employeeCategory && rule.employeeCategory.zh !== employeeCategory) continue;
+      results.push({
+        ...rule,
+        signingType: stype.code,
+        signingTypeName: stype.name,
+      });
+    }
+  }
+  return results;
+}

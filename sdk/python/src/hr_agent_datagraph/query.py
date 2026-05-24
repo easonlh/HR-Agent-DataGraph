@@ -131,3 +131,32 @@ def search_glossary(keyword: str) -> list[dict[str, Any]]:
         if keyword in entry.get("term", "") or keyword in entry.get("definition", ""):
             results.append(entry)
     return results
+
+
+def find_contract_rules(
+    signing_type: str | None = None,
+    employee_category: str | None = None,
+) -> list[dict[str, Any]]:
+    """Find contract end date rules by signing type and/or employee category.
+
+    Args:
+        signing_type: Signing type code (e.g. "NEW_SIGNING", "FIRST_RENEWAL", "SECOND_RENEWAL")
+        employee_category: Employee category Chinese name (e.g. "正式员工", "劳务派遣")
+
+    Returns:
+        List of matching rule dicts with signing type context.
+    """
+    data = load("core-hr/contract-end-date-rules")
+    results = []
+    for stype in data.get("signingTypes", []):
+        if signing_type and stype["code"] != signing_type:
+            continue
+        for rule in stype.get("rules", []):
+            if employee_category and rule.get("employeeCategory", {}).get("zh") != employee_category:
+                continue
+            results.append({
+                **rule,
+                "signingType": stype["code"],
+                "signingTypeName": stype["name"],
+            })
+    return results

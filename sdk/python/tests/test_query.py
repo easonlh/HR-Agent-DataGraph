@@ -96,3 +96,32 @@ def test_search_glossary():
     assert len(results) > 0
     terms = [r["term"] for r in results]
     assert "员工司龄" in terms
+
+
+def test_find_contract_rules_by_signing_type():
+    from hr_agent_datagraph.query import find_contract_rules
+
+    results = find_contract_rules(signing_type="NEW_SIGNING")
+    assert len(results) > 0
+    categories = [r["employeeCategory"]["zh"] for r in results]
+    assert "正式员工" in categories
+    assert "劳务派遣" in categories
+
+
+def test_find_contract_rules_by_category():
+    from hr_agent_datagraph.query import find_contract_rules
+
+    results = find_contract_rules(employee_category="正式员工")
+    assert len(results) >= 3
+    signing_types = [r["signingType"] for r in results]
+    assert "NEW_SIGNING" in signing_types
+    assert "FIRST_RENEWAL" in signing_types
+    assert "SECOND_RENEWAL" in signing_types
+
+
+def test_find_contract_rules_combined():
+    from hr_agent_datagraph.query import find_contract_rules
+
+    results = find_contract_rules(signing_type="SECOND_RENEWAL", employee_category="正式员工")
+    assert len(results) == 1
+    assert "2099-12-31" in results[0]["rule"]

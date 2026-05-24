@@ -13,6 +13,7 @@ export {
   findStatusTransitions,
   findGlossaryTerm,
   searchGlossary,
+  findContractRules,
 } from "./query.js";
 export { validate, type ValidationResult } from "./validation.js";
 export type {

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hr-agent.dev/schemas/contract-end-date-rules.schema.json",
+  "title": "Contract End Date Rules",
+  "description": "合同结束日期计算规则标准结构",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "metadata": { "$ref": "_meta/common.schema.json#/$defs/Metadata" },
+    "signingTypes": {
+      "type": "array",
+      "description": "按签订类型分组的规则列表",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": { "$ref": "_meta/common.schema.json#/$defs/UpperCaseCode" },
+          "name": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+          "rules": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "employeeCategory": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+                "contractType": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" },
+                "rule": { "type": "string", "description": "合同结束日期计算规则" },
+                "example": { "type": "string", "description": "计算示例" },
+                "lastUpdated": { "$ref": "_meta/common.schema.json#/$defs/ISODate" },
+                "note": { "$ref": "_meta/common.schema.json#/$defs/OptionalBilingualString" }
+              },
+              "required": ["employeeCategory", "contractType", "rule"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["code", "name", "rules"],
+        "additionalProperties": false
+      }
+    },
+    "notes": {
+      "type": "array",
+      "description": "补充说明",
+      "items": { "$ref": "_meta/common.schema.json#/$defs/BilingualString" }
+    }
+  },
+  "required": ["metadata", "signingTypes"],
+  "additionalProperties": false
+}

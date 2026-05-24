@@ -7,6 +7,7 @@ import {
   findStatusTransitions,
   findGlossaryTerm,
   searchGlossary,
+  findContractRules,
 } from "../src/query.js";
 
 describe("query", () => {
@@ -79,5 +80,28 @@ describe("query", () => {
     expect(results.length).toBeGreaterThan(0);
     const terms = results.map((r) => r.term);
     expect(terms).toContain("员工司龄");
+  });
+
+  it("finds contract rules by signing type", () => {
+    const results = findContractRules("NEW_SIGNING");
+    expect(results.length).toBeGreaterThan(0);
+    const categories = results.map((r) => r.employeeCategory.zh);
+    expect(categories).toContain("正式员工");
+    expect(categories).toContain("劳务派遣");
+  });
+
+  it("finds contract rules by employee category", () => {
+    const results = findContractRules(undefined, "正式员工");
+    expect(results.length).toBeGreaterThanOrEqual(3);
+    const signingTypes = results.map((r) => r.signingType);
+    expect(signingTypes).toContain("NEW_SIGNING");
+    expect(signingTypes).toContain("FIRST_RENEWAL");
+    expect(signingTypes).toContain("SECOND_RENEWAL");
+  });
+
+  it("finds contract rules combined filter", () => {
+    const results = findContractRules("SECOND_RENEWAL", "正式员工");
+    expect(results).toHaveLength(1);
+    expect(results[0].rule).toContain("2099-12-31");
   });
 });

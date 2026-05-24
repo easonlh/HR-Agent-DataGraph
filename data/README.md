@@ -22,7 +22,8 @@ data/
 ├── core-hr/                        # 核心人力
 │   ├── employee-status/            # 员工状态与用工类型
 │   ├── compensation/               # 薪酬福利
-│   └── glossary.json               # 人力资源名词解释
+│   ├── glossary.json               # 人力资源名词解释
+│   └── contract-end-date-rules.json # 合同结束日期计算规则
 ├── offboarding/                    # 离职生命周期
 └── ai-agent/                       # AI Agent 技能图谱
 ```
